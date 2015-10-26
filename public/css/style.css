@@ -1,0 +1,35 @@
+.h1 {
+    margin: auto;
+}
+
+.drawcontainer{
+	width: 99%;
+    height: 90%;
+    margin: auto;
+}
+
+//iPad in landscape
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) 
+{ 
+    margin: auto;  
+}
+
+iPad in portrait
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) 
+{
+    margin: auto;
+}
+
+.clearfix::before,
+.clearfix::after {
+  content: " ";
+  display: table;
+} 
+
+.clearfix::after {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1; /* Für den IE6 und IE7 */
+}
