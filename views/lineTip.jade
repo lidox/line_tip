@@ -70,6 +70,7 @@ html(lang="de")
                   && x > element.left && x < element.left + element.width) {
                   //alert('clicked an element');
                   countHit();
+                  PlaySound();
                   }
                   else{countMiss();}
                   });
@@ -89,4 +90,10 @@ html(lang="de")
                   context.fillStyle = 'rgba(0, 0, 0, 0.4)';
                   context.fillRect(element.left, element.top, element.width, element.height);
                   });
+                  
+            audio#audio(src='http://www.soundjay.com/button/beep-07.wav', autostart='false')    
             script.
+              function PlaySound() {
+                var sound = document.getElementById("audio");
+                sound.play()
+              }
