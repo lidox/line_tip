@@ -7,6 +7,7 @@ html(lang="de")
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         title LineTip
         script(type='text/javascript', src='http://code.jquery.com/jquery.min.js')
+        script(src='/js/random.js')
         style.
           //body{ background-color: ivory; }
     body
@@ -34,10 +35,10 @@ html(lang="de")
                 var spotBreite = 30;
                 //var spot_transparenz = 0.7;
                 var lineSize = 5;
-                var x1 = 50;
-                var y1 = 550;
-                var x2 = 600;
-                var y2 = 470;
+                var x1 = getRandomInt(50, 100);
+                var y1 = getRandomInt(10, 700);
+                var x2 = getRandomInt(400, 1000);
+                var y2 = getRandomInt(10, 700);
                 var m1 = (x1+x2)/2;
                 var m2 = (y1+y2)/2;
                 var c = document.getElementById('myCanvas');
