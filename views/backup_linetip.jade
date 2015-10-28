@@ -1,0 +1,102 @@
+doctype html
+html(lang="de")
+    head
+        link(rel="stylesheet", type="text/css", href="/css/style.css")
+        link(rel="stylesheet", type="text/css", href="/css/normalize.css")
+        meta(charset="UTF-8")
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        title LineTip
+        script(type='text/javascript', src='http://code.jquery.com/jquery.min.js')
+        script(src='/js/random.js')
+        script(src='/js/utils.js')
+        style.
+          //body{ background-color: ivory; }
+    body
+        h1
+          | getroffen: 
+          a#clicks 0
+          |   und verfehlt: 
+          a#fails 0
+        |   
+        script.
+            var clicks = 0;
+            function countHit() {
+                clicks += 1;
+                document.getElementById("clicks").innerHTML = clicks;
+            }
+            var fails = 0;
+            function countMiss() {
+                fails += 1;
+                document.getElementById("fails").innerHTML = fails;
+            }
+            
+        .drawcontainer
+            canvas#myCanvas(width='1200', height='800', style='border:1px solid #d3d3d3;')
+            script.
+                var spotBreite = 30;
+                //var spot_transparenz = 0.7;
+                var lineSize = 5;
+                var x1 = getRandomInt(50, 100);
+                var y1 = getRandomInt(10, 700);
+                var x2 = getRandomInt(400, 1000);
+                var y2 = getRandomInt(10, 700);
+                var m1 = (x1+x2)/2;
+                var m2 = (y1+y2)/2;
+                var c = document.getElementById('myCanvas');
+                var ctx = c.getContext('2d');
+                
+                var canvasOffset = $("#myCanvas").offset();
+                var offsetX = canvasOffset.left;
+                var offsetY = canvasOffset.top;
+                var PI2 = Math.PI * 2;
+                
+                ctx.beginPath();
+                ctx.moveTo(x1,y1);
+                ctx.lineTo(x2, y2);
+                ctx.lineWidth = lineSize;
+                ctx.stroke();
+                  
+                // jetzt das click-element
+                var elem = document.getElementById('myCanvas'),
+                  elemLeft = elem.offsetLeft,
+                  elemTop = elem.offsetTop,
+                  context = elem.getContext('2d'),
+                  elements = [];
+                  // Add event listener for `click` events.
+                  elem.addEventListener('click', function(event) {
+                  var x = event.pageX - elemLeft,
+                  y = event.pageY - elemTop;
+                  // Collision detection between clicked offset and element.
+                  elements.forEach(function(element) {
+                  if (y > element.top && y < element.top + element.height
+                  && x > element.left && x < element.left + element.width) {
+                  //alert('clicked an element');
+                  countHit();
+                  PlaySound();
+                  }
+                  else{countMiss();}
+                  });
+                  }, false);
+                  // Add element.
+                  elements.push({
+                  colour: '#ffffff',
+                  width: spotBreite,
+                  height: spotBreite,
+                  top: m2-(spotBreite/2),
+                  left: m1-(spotBreite/2)
+                  });
+                  // Render elements.
+                  elements.forEach(function(element) {
+                  
+                  //context.fillStyle = element.colour;
+                  context.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                  context.fillRect(element.left, element.top, element.width, element.height);
+                  });
+                  
+                  
+            audio#audio(src='http://www.soundjay.com/button/beep-07.wav', autostart='false')    
+            script.
+              function PlaySound() {
+                var sound = document.getElementById("audio");
+                sound.play()
+              }
