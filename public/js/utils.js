@@ -25,26 +25,32 @@ function checkLineTiped(){
     elemTop = clipboard.offsetTop,
     context = clipboard.getContext('2d');
     
+    // remove listerner if possible to clear old stuff
+    try {
+       clipboard.removeEventListener('click');
+    }
+    catch(err) {}
+
     clipboard.addEventListener('click', function(event) {
-          var x = event.pageX - elemLeft,
-          y = event.pageY - elemTop;
+          var xSpot = event.pageX - elemLeft,
+          var ySpot = event.pageY - elemTop;
           
           // Collision detection between clicked offset and element.
           var element = elements[0];
-              if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
-                  //alert('clicked an element');
-                  countHit();
+        
+          // click in range?
+          if (ySpot > element.top && ySpot < element.top + element.height && x > element.left && x < element.left + element.width) {
+                  //countHit();
                   PlaySound();
-                  
+
                   // clear clipboard
                   clipboard.width+=0;
                   
-                  zeichneGraph();
-              }
-              else{
-                  countMiss();
-              }
-          //});
+                  //zeichneGraph();
+          }
+          else{
+            //countMiss();
+          }
       }, false);
 }
 
@@ -73,30 +79,8 @@ function zeichneGraph(){
     ctx.stroke();
 
     // jetzt das click-element
-    var elem = document.getElementById('myCanvas'),
-      elemLeft = elem.offsetLeft,
-      elemTop = elem.offsetTop,
-      context = elem.getContext('2d'),
-      elements = [];
-      // Add event listener for `click` events.
-      elem.addEventListener('click', function(event) {
-          var x = event.pageX - elemLeft,
-          y = event.pageY - elemTop;
-          
-          // Collision detection between clicked offset and element.
-          var element = elements[0];
-              if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
-                  //alert('clicked an element');
-                  countHit();
-                  PlaySound();
-                  elem.width+=0;
-                  zeichneGraph();
-              }
-              else{
-                  countMiss();
-              }
-          //});
-      }, false);
+    checkLineTiped();
+    
       // Add element.
       elements.push({
           colour: '#ffffff',
