@@ -19,14 +19,43 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function checkLineTiped(){
+    var clipboard = document.getElementById('myCanvas'),
+    elemLeft = clipboard.offsetLeft,
+    elemTop = clipboard.offsetTop,
+    context = clipboard.getContext('2d');
+    
+    clipboard.addEventListener('click', function(event) {
+          var x = event.pageX - elemLeft,
+          y = event.pageY - elemTop;
+          
+          // Collision detection between clicked offset and element.
+          var element = elements[0];
+              if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+                  //alert('clicked an element');
+                  countHit();
+                  PlaySound();
+                  
+                  // clear clipboard
+                  clipboard.width+=0;
+                  
+                  zeichneGraph();
+              }
+              else{
+                  countMiss();
+              }
+          //});
+      }, false);
+}
+
 function zeichneGraph(){
-    var spotBreite = 30;
+    var spotBreite = 40;
     //var spot_transparenz = 0.7;
     var lineSize = 5;
     var x1 = getRandomInt(50, 100);
     var y1 = getRandomInt(10, 700);
     var x2 = getRandomInt(400, 1000);
-    var y2 = getRandomInt(10, 700);
+    var y2 = y1;//getRandomInt(10, 700);
     var m1 = (x1+x2)/2;
     var m2 = (y1+y2)/2;
     var c = document.getElementById('myCanvas');
@@ -53,8 +82,8 @@ function zeichneGraph(){
       elem.addEventListener('click', function(event) {
           var x = event.pageX - elemLeft,
           y = event.pageY - elemTop;
+          
           // Collision detection between clicked offset and element.
-          //elements.forEach(function(element) {
           var element = elements[0];
               if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
                   //alert('clicked an element');
