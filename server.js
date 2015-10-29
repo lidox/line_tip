@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+var port = 443;
+
 // view engine
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
@@ -16,4 +18,5 @@ var line_tip = require(__dirname + '/routes/linetip');
 app.use('/', index);
 app.use('/linetip', line_tip);
 
-app.listen(1338);
+app.listen(port);
+console.log('port running: ' + port);
