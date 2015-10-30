@@ -1,8 +1,11 @@
+// variables
 var clicks = 0;
 var fails = 0;
+var scoreText = "";
 
 //configuration
-var amountOfLines = 100;
+var isMiddleVisible = false;
+var amountOfLines = 5;
 var generatorType = 'random--';
 
 //Print config
@@ -24,6 +27,13 @@ function playSoundByID(audioId) {
   sound.play();
 }
 
+function refreshCounters() {
+    clicks = 0;
+    fails = 0;
+    document.getElementById("clicks").innerHTML = clicks;
+    document.getElementById("fails").innerHTML = fails;
+}
+
 // @return {integer} a random int between min and max
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -35,16 +45,20 @@ function removeOldListenerByName(clipboard, listenerName) {
        clipboard.removeEventListener(listenerName);
        //alert('listener removed');
     }
-    catch(err) { 
-        alert('no old listener to remove');
-    }
+    catch(err) {}
 }
 
-//var spotBreite = 30;
-//var lineSize = 5;
+function getExperimentName() {
+    var text = document.getElementById("versuch_id").value;
+    //document.getElementById("demo").innerHTML = x;
+    if(text===''){
+        alert('Bitte einen Namen für den Versuch angeben!');
+    }
+    return text;
+}
 
 function zeichneGraph(){   
-    var spotSize = 50;//rename: spotSize
+    var spotSize = 50;
     var lineSize = 5;
     
     var clipboard = document.getElementById('myCanvas');
@@ -52,7 +66,13 @@ function zeichneGraph(){
     // clear clipboard!
     clipboard.width+=0;
     
+    var experimentName = getExperimentName();
     if(amountOfLines<=clicks){
+        scoreText += "Versuch: "+experimentName+ ", getroffen=" +clicks+", verfehlt="+fails + ", Zeit=not implemented"+"<br>";
+        // score ausgeben
+        document.getElementById("score").innerHTML = scoreText;
+        
+        refreshCounters();
         return;
     }
     
@@ -93,17 +113,22 @@ function zeichneGraph(){
     // Add element to listen.
     elements.push({
         colour: '#ffffff',
-        width: spotSize,
+        width: spotSize+20,
         height: spotSize,
         top: m2-(spotSize/2),
-        left: m1-(spotSize/2)
+        left: m1-(spotSize/2)-10
      });
     //alert('6');
     // Render elements.
     elements.forEach(function(element) {
         //alert('element');
         //context.fillStyle = element.colour;
-        context.fillStyle = 'rgba(0, 0, 241, 0.4)';
+        if(isMiddleVisible){
+            context.fillStyle = 'rgba(0, 0, 121, 0.4)';
+        }
+        else{
+            context.fillStyle = 'rgba(0, 0, 0, 0.0)';
+        }
         context.fillRect(element.left, element.top, element.width, element.height);
      });
     
@@ -177,6 +202,8 @@ Generator.prototype.getLines = function() {
     }
     return lineList;
 };
+
+
 
 
 function printToHTML() {

@@ -11,12 +11,17 @@ html(lang="de")
         style.
           //body{ background-color: ivory; }
     body
+        .sd_header              
+            h1 Line Detection
         h2
           | getroffen: 
           a#clicks 0
           |   und verfehlt: 
           a#fails 0
-        |   
+        | 
+        | Versuch: 
+        input#versuch_id(type='text', value='')
+
             
         .drawcontainer
             canvas#myCanvas(width='1024', height='768', style='border:1px solid #d3d3d3;')
@@ -25,4 +30,6 @@ html(lang="de")
                 zeichneGraph();            
             audio#goodaudio(src='sound/good.wav', autostart='false')
             audio#wrongaudio(src='sound/wrong.wav', autostart='false')
+        h2 Statistik:
+        p#score
         p#lines
