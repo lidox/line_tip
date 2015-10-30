@@ -1,5 +1,6 @@
-.h1 {
+h1 {
     margin: auto;
+    text-align: center;
 }
 
 .drawcontainer{
@@ -8,10 +9,16 @@
     margin: auto;
 }
 
+#myCanvas { 
+  float: none;
+  width: 1024px;
+  height: 768;
+} 
+
 //iPad in landscape
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) 
 { 
-    margin: auto;  
+
 }
 
 iPad in portrait

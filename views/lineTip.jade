@@ -11,7 +11,7 @@ html(lang="de")
         style.
           //body{ background-color: ivory; }
     body
-        h1
+        h2
           | getroffen: 
           a#clicks 0
           |   und verfehlt: 
@@ -19,7 +19,8 @@ html(lang="de")
         |   
             
         .drawcontainer
-            canvas#myCanvas(width='1200', height='800', style='border:1px solid #d3d3d3;')
+            canvas#myCanvas(width='1024', height='768', style='border:1px solid #d3d3d3;')
+            //canvas#myCanvas(style='border:1px solid #d3d3d3;')
             script.
                 zeichneGraph();            
             audio#audio(src='http://www.soundjay.com/button/beep-07.wav', autostart='false')    

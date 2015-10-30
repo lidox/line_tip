@@ -34,7 +34,7 @@ function removeOldListenerByName(clipboard, listenerName) {
 //var lineSize = 5;
 
 function zeichneGraph(){   
-    var spotSize = 40;//rename: spotSize
+    var spotSize = 50;//rename: spotSize
     var lineSize = 5;
     
     var clipboard = document.getElementById('myCanvas');
