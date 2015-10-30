@@ -9,9 +9,9 @@ function countMiss() {
     document.getElementById("fails").innerHTML = fails;
 }
 
-function PlaySound() {
-  var sound = document.getElementById("audio");
-  sound.play()
+function playSoundByID(audioId) {
+  var sound = document.getElementById(audioId);
+  sound.play();
 }
 
 // @return {integer} a random int between min and max
@@ -99,10 +99,13 @@ function zeichneGraph(){
                 removeOldListenerByName(elem, 'click');
                 elements = [];
                 countHit();
-                PlaySound();
+                playSoundByID('goodaudio');
                 zeichneGraph();
             }
-            else{countMiss();}
+            else{
+                countMiss();
+                playSoundByID('wrongaudio');
+            }
         });
     }, false);
 }
