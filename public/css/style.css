@@ -1,5 +1,4 @@
-h1 {
-    margin: auto;
+h2 {
     text-align: center;
 }
 
@@ -10,9 +9,10 @@ h1 {
 }
 
 #myCanvas { 
-  float: none;
-  width: 1024px;
-  height: 768;
+  float: none;  
+    background-color: black;
+  //width: 1024px;
+  //height: 768;
 } 
 
 //iPad in landscape

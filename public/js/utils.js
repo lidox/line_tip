@@ -45,7 +45,7 @@ function zeichneGraph(){
     // calculate points of line and middle spot
     var x1 = getRandomInt(50, 100);
     var y1 = getRandomInt(10, 700);
-    var x2 = getRandomInt(400, 1000);
+    var x2 = getRandomInt(200, 1000);
     var y2 = y1;//getRandomInt(10, 700);
     var m1 = (x1+x2)/2;
     var m2 = (y1+y2)/2;
@@ -59,6 +59,7 @@ function zeichneGraph(){
     ctx.moveTo(x1,y1);
     ctx.lineTo(x2, y2);
     ctx.lineWidth = lineSize;
+    ctx.strokeStyle = '#ffffff';
     ctx.stroke();
     
     //alert('1');
@@ -83,7 +84,7 @@ function zeichneGraph(){
     elements.forEach(function(element) {
         //alert('element');
         //context.fillStyle = element.colour;
-        context.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        context.fillStyle = 'rgba(0, 0, 241, 0.4)';
         context.fillRect(element.left, element.top, element.width, element.height);
      });
     
