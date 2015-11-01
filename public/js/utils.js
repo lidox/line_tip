@@ -49,7 +49,7 @@ function removeOldListenerByName(clipboard, listenerName) {
 }
 
 function getExperimentName() {
-    var text = document.getElementById("versuch_id").value;
+    var text = document.getElementById("bezeichnung").value;
     //document.getElementById("demo").innerHTML = x;
     if(text===''){
         alert('Bitte einen Namen für den Versuch angeben!');
@@ -68,9 +68,7 @@ function zeichneGraph(){
     
     var experimentName = getExperimentName();
     if(amountOfLines<=clicks){
-        scoreText += "Versuch: "+experimentName+ ", getroffen=" +clicks+", verfehlt="+fails + ", Zeit=not implemented"+"<br>";
-        // score ausgeben
-        document.getElementById("score").innerHTML = scoreText;
+        
         
         refreshCounters();
         return;

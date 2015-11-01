@@ -8,6 +8,7 @@ html(lang="de")
         title LineTip
         script(type='text/javascript', src='http://code.jquery.com/jquery.min.js')
         script(src='/js/utils.js')
+        script(src='/js/stats.js')
         style.
           //body{ background-color: ivory; }
     body
@@ -30,6 +31,44 @@ html(lang="de")
                 zeichneGraph();            
             audio#goodaudio(src='sound/good.wav', autostart='false')
             audio#wrongaudio(src='sound/wrong.wav', autostart='false')
+        h3 Versuche:
+             #data
+                form#eingabeForm
+                  br
+                  br 
+                  | Bezeichnung
+                  input#bezeichnung(name='bezeichnung', type='text')
+                  br
+                  br
+                  | Zeit
+                  input#zeit(name='zeit', type='text')
+                  br
+                  br
+                  | Treffer:
+                  input#treffer(name='treffer', type='text')
+                  br
+                  | Fehlversuch 
+                  input#fehlversuch(name='fehlversuch', type='text')
+                  br
+                  br
+                  input.button(type='button', value=' Reset ', onclick='ResetForm()')
+                  input.button(type='button', value=' Add ', onclick='AddData()')
+                  input.button(type='button', value=' Update ')
+              h3 Versuche
+              #tab
+                table#list(cellspacing='0px', cellpadding='20px', text-align='center')
+                  thead
+                    tr
+                      td Bezeichnung
+
+                      td Zeit
+
+                      td Treffer
+
+                      td Fehlversuch
+
+                      td Action
+                    tbody
+              
         h2 Statistik:
-        p#score
         p#lines
