@@ -1,5 +1,5 @@
-function AddData() {
-    alert('HI!');
+function addData() {
+    //alert('HI!');
     var x = document.getElementById("treffer").value;
     var y = document.getElementById("bezeichnung").value;
     var letters = '/^[a-zA-Z]+$/';
@@ -23,6 +23,35 @@ function AddData() {
     }
 }
 
-function ResetForm() {
+function resetForm() {
     document.getElementById("eingabeForm").reset();
 }
+
+//trial
+var Trial = function (description, trialTime, hits, fails) {
+    this.description = description;
+    this.hits = hits;
+    this.fails = fails;
+    this.trialTime = trialTime;
+    this.timeStamp = new Date().getTime();
+};
+
+Trial.prototype.getDescription = function() {
+  return this.description;
+};
+
+Trial.prototype.getHits = function() {
+    return this.hits;
+};
+
+Trial.prototype.getFails = function() {
+    return this.fails;
+};
+
+Trial.prototype.getTrialTime = function() {
+    return this.trialTime;
+};
+
+Trial.prototype.getTimeStamp = function() {
+    return this.timeStamp;
+};

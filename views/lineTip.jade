@@ -9,6 +9,7 @@ html(lang="de")
         script(type='text/javascript', src='http://code.jquery.com/jquery.min.js')
         script(src='/js/utils.js')
         script(src='/js/stats.js')
+        script(src='/js/lineDataSet.js')
         style.
           //body{ background-color: ivory; }
     body
@@ -18,12 +19,7 @@ html(lang="de")
           | getroffen: 
           a#clicks 0
           |   und verfehlt: 
-          a#fails 0
-        | 
-        | Versuch: 
-        input#versuch_id(type='text', value='')
-
-            
+          a#fails 0    
         .drawcontainer
             canvas#myCanvas(width='1024', height='768', style='border:1px solid #d3d3d3;')
             //canvas#myCanvas(style='border:1px solid #d3d3d3;')
@@ -31,44 +27,40 @@ html(lang="de")
                 zeichneGraph();            
             audio#goodaudio(src='sound/good.wav', autostart='false')
             audio#wrongaudio(src='sound/wrong.wav', autostart='false')
-        h3 Versuche:
-             #data
-                form#eingabeForm
+        h2
+        | Versuche
+        p#data
+            form#eingabeForm
                   br
                   br 
-                  | Bezeichnung
-                  input#bezeichnung(name='bezeichnung', type='text')
+                  | Bezeichnung: 
+                  input#bezeichnung(value='test')
                   br
                   br
-                  | Zeit
-                  input#zeit(name='zeit', type='text')
+                  | Zeit: 
+                  p#zeit
                   br
                   br
-                  | Treffer:
-                  input#treffer(name='treffer', type='text')
-                  br
-                  | Fehlversuch 
-                  input#fehlversuch(name='fehlversuch', type='text')
+                  | Treffer: 
+                  p#treffer
                   br
                   br
-                  input.button(type='button', value=' Reset ', onclick='ResetForm()')
-                  input.button(type='button', value=' Add ', onclick='AddData()')
-                  input.button(type='button', value=' Update ')
-              h3 Versuche
-              #tab
-                table#list(cellspacing='0px', cellpadding='20px', text-align='center')
-                  thead
-                    tr
-                      td Bezeichnung
-
-                      td Zeit
-
-                      td Treffer
-
-                      td Fehlversuch
-
-                      td Action
-                    tbody
-              
-        h2 Statistik:
+                  | Fehlversuche: 
+                  p#fehlversuche
+                  br
+                  br
+                  input.button(type='button', value=' Reset ', onclick='resetForm()')
+                  input.button(type='button', value=' Add ', onclick='addData()')
+            h3
+                Versuche
+        #tab
+        table#list(cellspacing='0px', cellpadding='20px', text-align='center')
+             thead
+             tr
+                 td Bezeichnung
+                 td Zeit
+                 td Treffer
+                 td Fehlversuch
+                 td Action
+             tbody
         p#lines
