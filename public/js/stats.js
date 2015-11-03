@@ -1,25 +1,27 @@
 function addData() {
     //alert('HI!');
-    var x = document.getElementById("treffer").value;
-    var y = document.getElementById("bezeichnung").value;
-    var letters = '/^[a-zA-Z]+$/';
-    if ((parseInt(x) != (x)) && (y == parseInt(y))) {
-        alert("Wrong Value Entered");
-    } else {
-        var rows = "";
-        var bezeichnung = document.getElementById("bezeichnung").value;
-        var zeit = document.getElementById("zeit").value;
-        var treffer = document.getElementById("treffer").value;
-        var fehlversuch = document.getElementById("fehlversuch").value;
+    try {
+        var x = document.getElementById("treffer").value;
+        var y = document.getElementById("bezeichnung").value;
+        var letters = '/^[a-zA-Z]+$/';
+        if ((parseInt(x) != (x)) && (y == parseInt(y))) {
+            alert("Wrong Value Entered");
+        } else {
+            var rows = "";
+            var bezeichnung = document.getElementById("bezeichnung");
+            var zeit = document.getElementById("zeit");
+            var treffer = document.getElementById("treffer");
+            var fehlversuch = document.getElementById("fehlversuch");
 
-        rows += "<td>" + bezeichnung + "</td><td>" + zeit + "</td><td>" + treffer + "</td><td>" + fehlversuch + "</td>";
-        var tbody = document.querySelector("#list tbody");
-        var tr = document.createElement("tr");
+            rows += "<td>" + bezeichnung.value + "</td><td>" + zeit + "</td><td>" + treffer + "</td><td>" + fehlversuch + "</td>";
+            var tbody = document.querySelector("#list tbody");
+            var tr = document.createElement("tr");
 
-        tr.innerHTML = rows;
-        tbody.appendChild(tr)
-
-        //
+            tr.innerHTML = rows;
+            tbody.appendChild(tr)
+        }
+    }catch(err) {
+        console.log(err.message);
     }
 }
 

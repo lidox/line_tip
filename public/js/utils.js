@@ -2,15 +2,22 @@
 var clicks = 0;
 var fails = 0;
 var scoreText = "";
+var start_time;
 
 //configuration
 var isMiddleVisible = false;
-var amountOfLines = 5;
+var amountOfLines = 2;
 var generatorType = 'NOTrandom';
 
 //Print config
 var needToPrint = false;
 var amountOfLinesToPrint = 1000;
+
+function getDate() {
+    var dateObj = new Date();
+    //2010-03-08 14:59:30.252
+    return (dateObj.getUTCFullYear() + "-" + (dateObj.getUTCMonth() + 1) + "-" + dateObj.getUTCDate() + " " + dateObj.getHours() + ":" + dateObj.getMinutes());
+}
 
 function countHit() {
     clicks += 1;
@@ -48,6 +55,12 @@ function removeOldListenerByName(clipboard, listenerName) {
     catch(err) {}
 }
 
+function TrimSecondsMinutes(elapsed) {
+    if (elapsed >= 60)
+        return TrimSecondsMinutes(elapsed - 60);
+    return elapsed;
+}
+
 function getExperimentName() {
     var text;
     try {
@@ -62,7 +75,11 @@ function getExperimentName() {
     return text;
 }
 
-function zeichneGraph(){   
+function zeichneGraph(){
+    if(start_time==null){
+        start_time = new Date();
+    }
+
     var spotSize = 50;
     var lineSize = 5;
     
@@ -72,10 +89,23 @@ function zeichneGraph(){
     clipboard.width+=0;
     
     if(amountOfLines<=clicks){
+        var end_time = new Date();
+        var elapsed_ms = end_time - start_time;
+        var seconds = Math.round(elapsed_ms / 1000);
+        var minutes = Math.round(seconds / 60);
+        var hours = Math.round(minutes / 60);
+        var sec = TrimSecondsMinutes(seconds);
+        var min = TrimSecondsMinutes(minutes);
+        
         alert('Das Experiment ist abgeschlossen');
+        printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
+        printToHTMLById("fehlversuche",document.getElementById("clicks").innerHTML);
+        printToHTMLById("versuchszeitpunkt",getDate());
+        printToHTMLById("versuchsdauer",min+" min und "+sec +" s");
         var experimentName = getExperimentName();
         //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
         refreshCounters();
+        start_time = null;
         return;
     }
     

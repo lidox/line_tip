@@ -17,6 +17,14 @@ Generator.prototype.getLines = function() {
     return lineList;
 };
 
+function printToHTMLById(elementId, text) {
+    try {
+        document.getElementById(elementId).innerHTML = text;
+    }
+    catch(err) {
+        console.log('Could not set text to element... '+err.message);
+    }
+}
 
 function printToHTML() {
     var text = "";    

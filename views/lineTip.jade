@@ -30,25 +30,25 @@ html(lang="de")
         h2
         | Versuche
         p#data
-            form#eingabeForm
-                  br
-                  br 
+            form#eingabeForm 
                   | Bezeichnung: 
                   input#bezeichnung(value='test')
                   br
                   br
-                  | Zeit: 
-                  p#zeit
+                  | Versuchsdauer: 
+                  a#versuchsdauer
                   br
                   br
                   | Treffer: 
-                  p#treffer
+                  a#treffer
                   br
                   br
                   | Fehlversuche: 
-                  p#fehlversuche
+                  a#fehlversuche
                   br
                   br
+                  | Versuchszeitpunkt: 
+                  a#versuchszeitpunkt
                   input.button(type='button', value=' Reset ', onclick='resetForm()')
                   input.button(type='button', value=' Add ', onclick='addData()')
             h3
