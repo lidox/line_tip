@@ -6,7 +6,7 @@ var start_time;
 
 //configuration
 var isMiddleVisible = false;
-var amountOfLines = 2;
+var amountOfLines = 50;
 var generatorType = 'NOTrandom';
 
 //Print config

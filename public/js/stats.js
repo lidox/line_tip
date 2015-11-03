@@ -1,15 +1,10 @@
 function addData() {
     //alert('HI!');
     try {
-        var x = document.getElementById("treffer").value;
-        var y = document.getElementById("bezeichnung").value;
-        var letters = '/^[a-zA-Z]+$/';
-        if ((parseInt(x) != (x)) && (y == parseInt(y))) {
-            alert("Wrong Value Entered");
-        } else {
             var rows = "";
             var bezeichnung = document.getElementById("bezeichnung");
-            var zeit = document.getElementById("zeit");
+            var zeit = document.getElementById("versuchsdauer").innerHTML;
+        
             var treffer = document.getElementById("treffer");
             var fehlversuch = document.getElementById("fehlversuch");
 
@@ -19,7 +14,6 @@ function addData() {
 
             tr.innerHTML = rows;
             tbody.appendChild(tr)
-        }
     }catch(err) {
         console.log(err.message);
     }
