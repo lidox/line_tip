@@ -10,11 +10,13 @@ html(lang="de")
         script(src='/js/utils.js')
         script(src='/js/stats.js')
         script(src='/js/lineDataSet.js')
+        script(src='/js/fullscreen.js')
         style.
           //body{ background-color: ivory; }
     body
         .sd_header              
             h1 Line Detection
+        input.button(type='button', value=' Start ', id='button' ,onclick='togglefullscreen()')
         h2
           | getroffen: 
           a#clicks 0
@@ -23,8 +25,8 @@ html(lang="de")
         .drawcontainer
             canvas#myCanvas(width='1024', height='768', style='border:1px solid #d3d3d3;')
             //canvas#myCanvas(style='border:1px solid #d3d3d3;')
-            script.
-                zeichneGraph();            
+            //script.
+                //zeichneGraph();            
             audio#goodaudio(src='sound/good.wav', autostart='false')
             audio#wrongaudio(src='sound/wrong.wav', autostart='false')
         h2

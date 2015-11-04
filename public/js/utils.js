@@ -216,3 +216,4 @@ Line.prototype.getY1 = function() {
 Line.prototype.getY2 = function() {
     return this.y2;
 };
+
