@@ -11,7 +11,7 @@ h2 {
 .drawcontainer{
 	width: 99%;
     height: 90%;
-    margin: auto;
+    margin: none;
 }
 
 #myCanvas { 
