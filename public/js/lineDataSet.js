@@ -1,9 +1,9 @@
-var Generator = function (generatorType, amountOfLines) {
+var LineGenerator = function (generatorType, amountOfLines) {
     this.generatorType = generatorType;
     this.amountOfLines = amountOfLines;
 };
 
-Generator.prototype.getLines = function() {
+LineGenerator.prototype.getLines = function() {
     if(this.generatorType==='random'){
         var randomLineList =[];
         var i;

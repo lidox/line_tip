@@ -55,10 +55,48 @@ function removeOldListenerByName(clipboard, listenerName) {
     catch(err) {}
 }
 
+
 function TrimSecondsMinutes(elapsed) {
     if (elapsed >= 60)
         return TrimSecondsMinutes(elapsed - 60);
     return elapsed;
+}
+
+function drawLine(clipboard, line, lineSize) {
+    var ctx = clipboard.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(line.getX1(),line.getY1());
+    ctx.lineTo(line.getX2(), line.getY2());
+    ctx.lineWidth = lineSize;
+    ctx.strokeStyle = '#ffffff';
+    ctx.stroke();
+}
+
+
+function addSpotToSpotsList(spotList, spotSize, line) {
+    var m1 = (line.getX1()+line.getX2())/2;
+    var m2 = (line.getY1()+line.getY2())/2;
+    spotList.push({
+        colour: '#ffffff',
+        width: spotSize+20,
+        height: spotSize,
+        top: m2-(spotSize/2),
+        left: m1-(spotSize/2)-10
+     });
+}
+
+function drawSpotToGraph(elements) {
+    elements.forEach(function(element) {
+        //alert('element');
+        //context.fillStyle = element.colour;
+        if(isMiddleVisible){
+            document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(0, 0, 121, 0.4)';
+        }
+        else{
+            document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(0, 0, 0, 0.0)';
+        }
+        document.getElementById('myCanvas').getContext('2d').fillRect(element.left, element.top, element.width, element.height);
+     });
 }
 
 function getExperimentName() {
@@ -109,63 +147,24 @@ function zeichneGraph(){
         return;
     }
     
-    var generator = new Generator(generatorType, amountOfLines);
+    var generator = new LineGenerator(generatorType, amountOfLines);
     var lineList = generator.getLines();
     var line = lineList[clicks];
-
+   
+    drawLine(document.getElementById('myCanvas'), line, lineSize);
     
-    // calculate points of line and middle spot
-    var x1 = line.getX1();
-    var y1 = line.getY1();
-    var x2 = line.getX2();
-    var y2 = line.getY2();
-    var m1 = (x1+x2)/2;
-    var m2 = (y1+y2)/2;
-    
-    var ctx = clipboard.getContext('2d');
-    var canvasOffset = $("#myCanvas").offset();
-    var offsetX = canvasOffset.left;
-    var offsetY = canvasOffset.top;
-
-    ctx.beginPath();
-    ctx.moveTo(x1,y1);
-    ctx.lineTo(x2, y2);
-    ctx.lineWidth = lineSize;
-    ctx.strokeStyle = '#ffffff';
-    ctx.stroke();
-    
-    //alert('1');
     // jetzt das click-element
-    var elem = document.getElementById('myCanvas');
-    var elemLeft = elem.offsetLeft;
-    var elemTop = elem.offsetTop;
-    var context = elem.getContext('2d');
+
     var elements = [];
-    //alert('2');
+
+    addSpotToSpotsList(elements, spotSize, line);
+
+    drawSpotToGraph(elements);
+
     
-    // Add element to listen.
-    elements.push({
-        colour: '#ffffff',
-        width: spotSize+20,
-        height: spotSize,
-        top: m2-(spotSize/2),
-        left: m1-(spotSize/2)-10
-     });
-    //alert('6');
-    // Render elements.
-    elements.forEach(function(element) {
-        //alert('element');
-        //context.fillStyle = element.colour;
-        if(isMiddleVisible){
-            context.fillStyle = 'rgba(0, 0, 121, 0.4)';
-        }
-        else{
-            context.fillStyle = 'rgba(0, 0, 0, 0.0)';
-        }
-        context.fillRect(element.left, element.top, element.width, element.height);
-     });
-    
-    elem.addEventListener('click', function(event) {
+    document.getElementById('myCanvas').addEventListener('click', function(event) {
+        var elemLeft = document.getElementById('myCanvas').offsetLeft;
+        var elemTop = document.getElementById('myCanvas').offsetTop;
         var x = event.pageX - elemLeft,
         y = event.pageY - elemTop;
         // Collision detection between clicked offset and element.
@@ -173,7 +172,7 @@ function zeichneGraph(){
             if (y > element.top && y < element.top + element.height
             && x > element.left && x < element.left + element.width) {
                 //alert('clicked an element');
-                removeOldListenerByName(elem, 'click');
+                removeOldListenerByName(document.getElementById('myCanvas'), 'click');
                 elements = [];
                 countHit();
                 playSoundByID('goodaudio');
