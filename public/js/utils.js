@@ -5,13 +5,102 @@ var scoreText = "";
 var start_time;
 
 //configuration
-var isMiddleVisible = false;
-var amountOfLines = 50;
+var isMiddleVisible = true;
+var amountOfLines = 3;
 var generatorType = 'NOTrandom';
 
 //Print config
-var needToPrint = false;
+var needToPrintRandomDataSet = false;
 var amountOfLinesToPrint = 1000;
+
+function spotClickedByUser() {
+    console.log('spotClickedByUser');
+    countHit();
+    playSoundByID('goodaudio');
+    zeichneGraph();
+}
+
+function spotMissedByUser() {
+    console.log('spotMissedByUser');
+    countMiss();
+    playSoundByID('wrongaudio');
+}
+
+function zeichneGraph(){
+    if(start_time==null){
+        start_time = new Date();
+    }
+
+    var spotSize = 50;
+    var lineSize = 5;
+    
+    var clipboard = document.getElementById('myCanvas');
+
+    // clear clipboard!
+    clipboard.width+=0;
+    
+    if(amountOfLines<=clicks){
+        var end_time = new Date();
+        var elapsed_ms = end_time - start_time;
+        var seconds = Math.round(elapsed_ms / 1000);
+        var minutes = Math.round(seconds / 60);
+        var hours = Math.round(minutes / 60);
+        var sec = TrimSecondsMinutes(seconds);
+        var min = TrimSecondsMinutes(minutes);
+        
+        alert('Das Experiment ist abgeschlossen');
+        printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
+        printToHTMLById("fehlversuche",document.getElementById("fails").innerHTML);
+        printToHTMLById("versuchszeitpunkt",getDate());
+        printToHTMLById("versuchsdauer",min+" min und "+sec +" s");
+        var experimentName = getExperimentName();
+        //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
+        refreshCounters();
+        start_time = null;
+        return;
+    }
+    
+    var lineGenerator = new LineGenerator(generatorType, amountOfLines);
+    var lineList = lineGenerator.getLines();
+    var line = lineList[clicks];
+   
+    drawLine(document.getElementById('myCanvas'), line, lineSize);
+
+    var elements = [];
+
+    addSpotToSpotsList(elements, spotSize, line);
+
+    drawSpot(elements);
+
+    //if spot clicked -> spotClickedByUser() will be executed
+    //otherwise spotMissedByUser() will be executed
+    addSpotListener(elements);
+    
+    if(needToPrintRandomDataSet){
+        printToHTML();
+    }
+}
+
+function addSpotListener(elements) {
+    document.getElementById('myCanvas').addEventListener('click', function(event) {
+        var elemLeft = document.getElementById('myCanvas').offsetLeft;
+        var elemTop = document.getElementById('myCanvas').offsetTop;
+        var x = event.pageX - elemLeft,
+        y = event.pageY - elemTop;
+        
+        // Collision detection between clicked offset and element.
+        elements.forEach(function(element) {
+            //console.log('check where user clicked to:');
+            if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+                elements = [];
+                spotClickedByUser();
+            }
+            else{
+                spotMissedByUser();
+            }
+        });
+    }, false);
+}
 
 function getDate() {
     var dateObj = new Date();
@@ -46,15 +135,6 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function removeOldListenerByName(clipboard, listenerName) {
-    // remove listerner if possible to clear old stuff
-    try {
-       clipboard.removeEventListener(listenerName);
-       //alert('listener removed');
-    }
-    catch(err) {}
-}
-
 
 function TrimSecondsMinutes(elapsed) {
     if (elapsed >= 60)
@@ -85,7 +165,7 @@ function addSpotToSpotsList(spotList, spotSize, line) {
      });
 }
 
-function drawSpotToGraph(elements) {
+function drawSpot(elements) {
     elements.forEach(function(element) {
         //alert('element');
         //context.fillStyle = element.colour;
@@ -111,82 +191,6 @@ function getExperimentName() {
         console.log('Could not read bezeichnung');
     }
     return text;
-}
-
-function zeichneGraph(){
-    if(start_time==null){
-        start_time = new Date();
-    }
-
-    var spotSize = 50;
-    var lineSize = 5;
-    
-    var clipboard = document.getElementById('myCanvas');
-
-    // clear clipboard!
-    clipboard.width+=0;
-    
-    if(amountOfLines<=clicks){
-        var end_time = new Date();
-        var elapsed_ms = end_time - start_time;
-        var seconds = Math.round(elapsed_ms / 1000);
-        var minutes = Math.round(seconds / 60);
-        var hours = Math.round(minutes / 60);
-        var sec = TrimSecondsMinutes(seconds);
-        var min = TrimSecondsMinutes(minutes);
-        
-        alert('Das Experiment ist abgeschlossen');
-        printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
-        printToHTMLById("fehlversuche",document.getElementById("clicks").innerHTML);
-        printToHTMLById("versuchszeitpunkt",getDate());
-        printToHTMLById("versuchsdauer",min+" min und "+sec +" s");
-        var experimentName = getExperimentName();
-        //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
-        refreshCounters();
-        start_time = null;
-        return;
-    }
-    
-    var generator = new LineGenerator(generatorType, amountOfLines);
-    var lineList = generator.getLines();
-    var line = lineList[clicks];
-   
-    drawLine(document.getElementById('myCanvas'), line, lineSize);
-    
-    // jetzt das click-element
-
-    var elements = [];
-
-    addSpotToSpotsList(elements, spotSize, line);
-
-    drawSpotToGraph(elements);
-
-    
-    document.getElementById('myCanvas').addEventListener('click', function(event) {
-        var elemLeft = document.getElementById('myCanvas').offsetLeft;
-        var elemTop = document.getElementById('myCanvas').offsetTop;
-        var x = event.pageX - elemLeft,
-        y = event.pageY - elemTop;
-        // Collision detection between clicked offset and element.
-        elements.forEach(function(element) {
-            if (y > element.top && y < element.top + element.height
-            && x > element.left && x < element.left + element.width) {
-                //alert('clicked an element');
-                removeOldListenerByName(document.getElementById('myCanvas'), 'click');
-                elements = [];
-                countHit();
-                playSoundByID('goodaudio');
-                zeichneGraph();
-                if(needToPrint){
-                    printToHTML();
-                }
-            }
-            else{
-                countMiss();
-                playSoundByID('wrongaudio');
-            }
-        });
-    }, false);
 }
 
 var Line = function (x1, y1, x2, y2) {
