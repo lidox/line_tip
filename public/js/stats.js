@@ -1,19 +1,20 @@
+
 function addData() {
-    //alert('HI!');
     try {
             var rows = "";
             var bezeichnung = document.getElementById("bezeichnung");
             var zeit = document.getElementById("versuchsdauer").innerHTML;
-        
-            var treffer = document.getElementById("treffer");
-            var fehlversuch = document.getElementById("fehlversuch");
+            var treffer = document.getElementById("treffer").innerHTML;
+            var fehlversuche = document.getElementById("fehlversuche").innerHTML;
+            var versuchszeitpunkt = document.getElementById("versuchszeitpunkt").innerHTML;
 
-            rows += "<td>" + bezeichnung.value + "</td><td>" + zeit + "</td><td>" + treffer + "</td><td>" + fehlversuch + "</td>";
+            rows += "<td>" + bezeichnung.value + "</td><td>" + zeit + "</td><td>" + treffer + "</td><td>" + fehlversuche + "</td><td>" + versuchszeitpunkt + "</td>";
             var tbody = document.querySelector("#list tbody");
             var tr = document.createElement("tr");
 
             tr.innerHTML = rows;
             tbody.appendChild(tr)
+            resetForm();
     }catch(err) {
         console.log(err.message);
     }
@@ -21,6 +22,10 @@ function addData() {
 
 function resetForm() {
     document.getElementById("eingabeForm").reset();
+    printToHTMLById("versuchsdauer","");
+    printToHTMLById("treffer","");
+    printToHTMLById("fehlversuche","");
+    printToHTMLById("versuchszeitpunkt","");
 }
 
 //trial

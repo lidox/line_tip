@@ -27,7 +27,7 @@ html(lang="de")
         p#data
             form#eingabeForm 
                   | Bezeichnung: 
-                  input#bezeichnung(value='test')
+                  input#bezeichnung(value='')
                   br
                   | Versuchsdauer: 
                   a#versuchsdauer
@@ -46,15 +46,15 @@ html(lang="de")
             h3
                 Versuche
         #tab
-        table#list(cellspacing='0px', cellpadding='20px', text-align='center')
-             thead
-             tr
-                 td Bezeichnung
-                 td Zeit
-                 td Treffer
-                 td Fehlversuch
-                 td Action
-             tbody
+        table#list(cellspacing='5px', cellpadding='20px', text-align='center')
+            tr
+                th Bezeichnung
+                th Zeit
+                th Treffer
+                th Fehlversuche
+                th Versuchszeitpunkt
+            tr
+                
         p#lines
         input.button(type='button', value=' Stop ', onclick='stopTrial()')
         .drawcontainer
