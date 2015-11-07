@@ -3,10 +3,11 @@ var clicks = 0;
 var fails = 0;
 var scoreText = "";
 var start_time;
+var lastClickTimeStamp = new Date();
 
 //configuration
 var isMiddleVisible = true;
-var amountOfLines = 3;
+var amountOfLines = 700;
 var generatorType = 'NOTrandom';
 
 //Print config
@@ -26,6 +27,29 @@ function spotMissedByUser() {
     playSoundByID('wrongaudio');
 }
 
+function stopTrial() {
+    var end_time = lastClickTimeStamp;//new Date();
+    var elapsed_ms = end_time - start_time;
+    var seconds = Math.round(elapsed_ms / 1000);
+    var minutes = Math.round(seconds / 60);
+    var hours = Math.round(minutes / 60);
+    var sec = TrimSecondsMinutes(seconds);
+    var min = TrimSecondsMinutes(minutes);
+        
+    alert('Das Experiment ist abgeschlossen');
+    
+    printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
+    printToHTMLById("fehlversuche",document.getElementById("fails").innerHTML);
+    printToHTMLById("versuchszeitpunkt",getDate());
+    printToHTMLById("versuchsdauer",min+" min und "+sec +" s");
+    var experimentName = getExperimentName();
+    //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
+    refreshCounters();
+    start_time = null;
+    
+    return;
+}
+
 function zeichneGraph(){
     if(start_time==null){
         start_time = new Date();
@@ -40,24 +64,7 @@ function zeichneGraph(){
     clipboard.width+=0;
     
     if(amountOfLines<=clicks){
-        var end_time = new Date();
-        var elapsed_ms = end_time - start_time;
-        var seconds = Math.round(elapsed_ms / 1000);
-        var minutes = Math.round(seconds / 60);
-        var hours = Math.round(minutes / 60);
-        var sec = TrimSecondsMinutes(seconds);
-        var min = TrimSecondsMinutes(minutes);
-        
-        alert('Das Experiment ist abgeschlossen');
-        printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
-        printToHTMLById("fehlversuche",document.getElementById("fails").innerHTML);
-        printToHTMLById("versuchszeitpunkt",getDate());
-        printToHTMLById("versuchsdauer",min+" min und "+sec +" s");
-        var experimentName = getExperimentName();
-        //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
-        refreshCounters();
-        start_time = null;
-        return;
+        stopTrial();
     }
     
     var lineGenerator = new LineGenerator(generatorType, amountOfLines);
@@ -91,6 +98,7 @@ function addSpotListener(elements) {
         // Collision detection between clicked offset and element.
         elements.forEach(function(element) {
             //console.log('check where user clicked to:');
+            lastClickTimeStamp = new Date();
             if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
                 elements = [];
                 spotClickedByUser();
