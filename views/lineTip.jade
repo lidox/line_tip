@@ -1,17 +1,17 @@
 doctype html
 html(lang="de", manifest="cache.mf")
     head
-        link(rel="stylesheet", type="text/css", href="/css/style.css")
-        link(rel="stylesheet", type="text/css", href="/css/normalize.css")
+        link(rel="stylesheet", type="text/css", href="/css/style.css?v=1")
+        link(rel="stylesheet", type="text/css", href="/css/normalize.css?v=1")
         meta(charset="UTF-8")
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         title Line Detection
         //script(type='text/javascript', src='http://code.jquery.com/jquery.min.js')
         script(src='/js/jquery.min.js')
-        script(src='/js/utils.js')
-        script(src='/js/stats.js')
-        script(src='/js/lineDataSet.js')
-        script(src='/js/fullscreen.js')
+        script(src='/js/utils.js?v=1')
+        script(src='/js/stats.js?v=1')
+        script(src='/js/lineDataSet.js?v=1')
+        script(src='/js/fullscreen.js?v=1')
     body          
         audio#goodaudio(src='sound/good.wav', autostart='false')
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
@@ -54,7 +54,7 @@ html(lang="de", manifest="cache.mf")
           a#fails 0
         input.button(type='button', value=' Stop ', onclick='stopTrial()')
         .drawcontainer
-            canvas#myCanvas(width='1024', height='768', style='border:1px solid #d3d3d3;')
+            canvas#myCanvas(width='1024', height='768')
             //canvas#myCanvas(style='border:1px solid #d3d3d3;')
         script.
             zeichneGraph();  
