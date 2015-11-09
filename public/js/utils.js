@@ -46,6 +46,7 @@ function stopTrial() {
     //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
     refreshCounters();
     start_time = null;
+    clicks = 0;
     
     return;
 }
@@ -70,6 +71,7 @@ function zeichneGraph(){
     var lineGenerator = new LineGenerator(generatorType, amountOfLines);
     var lineList = lineGenerator.getLines();
     var line = lineList[clicks];
+    console.log("clicks="+clicks);
    
     drawLine(document.getElementById('myCanvas'), line, lineSize);
 
@@ -113,7 +115,11 @@ function addSpotListener(elements) {
 function getDate() {
     var dateObj = new Date();
     //2010-03-08 14:59:30.252
-    return (dateObj.getUTCFullYear() + "-" + (dateObj.getUTCMonth() + 1) + "-" + dateObj.getUTCDate() + " " + dateObj.getHours() + ":" + dateObj.getMinutes());
+    var minutes = dateObj.getMinutes(); 
+    if(dateObj.getMinutes()<10){
+        minutes = "0"+minutes;
+    }
+    return (dateObj.getUTCFullYear() + "-" + (dateObj.getUTCMonth() + 1) + "-" + dateObj.getUTCDate() + " " + dateObj.getHours() + ":" + minutes);
 }
 
 function countHit() {
