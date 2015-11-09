@@ -24,16 +24,15 @@ h2 {
   //height: 768;
 } 
 
-//iPad in landscape
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) 
-{ 
-
-}
-
-iPad in portrait
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) 
-{
-    margin: auto;
+@media only screen and (orientation:portrait){
+  body {  
+    height: 100vw;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
 }
 
 .clearfix::before,

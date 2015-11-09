@@ -16,7 +16,7 @@ html(lang="de", manifest="cache.mf")
         audio#goodaudio(src='sound/good.wav', autostart='false')
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
         p#data
-            form(onsubmit="return false;")#eingabeForm
+            form(onsubmit="addData(); return false;")#eingabeForm
                   | Versuchsname: 
                   input#bezeichnung(value='')
                   br
