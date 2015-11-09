@@ -6,8 +6,9 @@ var start_time;
 var lastClickTimeStamp = new Date();
 
 //configuration
-var isMiddleVisible = true;
-var amountOfLines = 700;
+var isMiddleVisible = false;
+var amountOfLines = 800;
+spotPercentageWidth = 0.23;
 var generatorType = 'NOTrandom';
 
 //Print config
@@ -36,7 +37,7 @@ function stopTrial() {
     var sec = TrimSecondsMinutes(seconds);
     var min = TrimSecondsMinutes(minutes);
         
-    alert('Das Experiment ist abgeschlossen');
+    alert('Der Versuch ist abgeschlossen');
     
     printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
     printToHTMLById("fehlversuche",document.getElementById("fails").innerHTML);
@@ -168,11 +169,12 @@ function drawLine(clipboard, line, lineSize) {
 
 
 function addSpotToSpotsList(spotList, spotSize, line) {
-    var m1 = (line.getX1()+line.getX2())/2;
+    var spotWidth = line.getLength()*spotPercentageWidth;
+    var m1 = ((line.getX1()+line.getX2())/2)-(spotWidth/2)+(spotSize/2);
     var m2 = (line.getY1()+line.getY2())/2;
     spotList.push({
         colour: '#ffffff',
-        width: spotSize+20,
+        width: (spotWidth),
         height: spotSize,
         top: m2-(spotSize/2),
         left: m1-(spotSize/2)-10
@@ -232,5 +234,15 @@ Line.prototype.getY1 = function() {
 
 Line.prototype.getY2 = function() {
     return this.y2;
+};
+
+Line.prototype.getLength = function() {
+    var x1 = parseFloat(this.getX1());
+    var y1 = parseFloat(this.getY1());
+    var x2 = parseFloat(this.getX2());
+    var y2 = parseFloat(this.getY2());
+    var result = Math.sqrt((x2-x1) * (x2-x1) + (y2-y1) * (y2-y1));
+    console.log("länge="+result);
+    return result;
 };
 

@@ -8,6 +8,7 @@ js/lineDataSet.js
 js/LineField.js
 js/stats.js
 js/utils.js
+js/jquery.min.js
 
 sound/good.wav
 sound/wrong.wav
