@@ -7,7 +7,7 @@ function addData() {
         var treffer = document.getElementById("treffer").innerHTML;
         var fehlversuche = document.getElementById("fehlversuche").innerHTML;
         var versuchszeitpunkt = document.getElementById("versuchszeitpunkt").innerHTML;
-        if(!isEmpty(bezeichnung.value)){
+        if(!isEmpty(bezeichnung.value) && !isEmpty(zeit)){
             rows += "<td>" + bezeichnung.value + "</td><td>" + zeit + "</td><td>" + treffer + "</td><td>" + fehlversuche + "</td><td>" + versuchszeitpunkt + "</td>";
             var tbody = document.querySelector("#list tbody");
             var tr = document.createElement("tr");
@@ -17,7 +17,7 @@ function addData() {
             resetForm();   
         }
         else if(isEmpty(zeit)){
-            alert("Bitte erst einen Versuch durchführen, stoppen und dann hinzufügen.");
+            alert("Bitte erst einen Versuch durchführen, stoppen und dann speichern.");
         }
         else{
             alert("Bitte eine Bezeichnung für diesen Versuch angeben.");

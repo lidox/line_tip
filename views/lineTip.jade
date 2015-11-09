@@ -5,7 +5,7 @@ html(lang="de")
         link(rel="stylesheet", type="text/css", href="/css/normalize.css")
         meta(charset="UTF-8")
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        title LineTip
+        title Line Detection
         script(type='text/javascript', src='http://code.jquery.com/jquery.min.js')
         script(src='/js/utils.js')
         script(src='/js/stats.js')
@@ -16,17 +16,9 @@ html(lang="de")
     body          
         audio#goodaudio(src='sound/good.wav', autostart='false')
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
-        //input.button(type='button', value=' Start ', id='button' ,onclick='togglefullscreen()')
-        h2
-          | getroffen: 
-          a#clicks 0
-          |   und verfehlt: 
-          a#fails 0  
-        h2
-            | Versuche
         p#data
-            form#eingabeForm 
-                  | Bezeichnung: 
+            form(onsubmit="return false;")#eingabeForm
+                  | Versuchsname: 
                   input#bezeichnung(value='')
                   br
                   | Versuchsdauer: 
@@ -41,10 +33,10 @@ html(lang="de")
                   | Versuchszeitpunkt: 
                   a#versuchszeitpunkt
                   br
-                  input.button(type='button', value=' Reset ', onclick='resetForm()')
-                  input.button(type='button', value=' Hinzufügen ', onclick='addData()')
-            h3
-                Versuche
+                  input.button(type='button', value=' Reset ', onclick="resetForm()")
+                  input.button(type='button', value=' Speichern ', onclick="addData()")
+        h2
+            | Versuche
         #tab
         table#list(cellspacing='5px', cellpadding='20px', text-align='center')
             tr
@@ -56,6 +48,11 @@ html(lang="de")
             tr
                 
         p#lines
+        h2
+          | getroffen: 
+          a#clicks 0
+          |   und verfehlt: 
+          a#fails 0
         input.button(type='button', value=' Stop ', onclick='stopTrial()')
         .drawcontainer
             canvas#myCanvas(width='1024', height='768', style='border:1px solid #d3d3d3;')
