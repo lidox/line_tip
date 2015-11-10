@@ -25,8 +25,8 @@ h2 {
 } 
 
 @media only screen and (orientation:portrait){
-  body {  
-    height: 100vw;
+  body {    
+    width: 140vw;
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -o-transform: rotate(90deg);
