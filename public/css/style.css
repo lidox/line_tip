@@ -9,11 +9,18 @@ table, td, th {
 }
 
 .drawcontainer{
-	width: 99%;
+    width: 100%;
     height: 90%;
     margin: 0;
 }
 
+#id {
+    display: none;
+}
+
+#list {
+    width: 100%;
+}
 #myCanvas { 
   float: none;  
     background-color: black;

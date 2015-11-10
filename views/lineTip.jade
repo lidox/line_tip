@@ -18,15 +18,12 @@ html(lang="de")
         audio#goodaudio(src='sound/good.wav', autostart='false')
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
         p#data
-            form(onsubmit="addData(); return false;")#eingabeForm
+            form(onsubmit="saveData(); return false;")#eingabeForm
                 | Versuchsname:
                 input#bezeichnung(value='')
                 br
                 | Versuchsdauer:
                 a#versuchsdauer
-                br
-                | id:
-                a#id
                 br
                 | Treffer:
                 a#treffer
@@ -38,18 +35,17 @@ html(lang="de")
                 a#versuchszeitpunkt
                 br
                 input.button(type='button', value=' Reset ', onclick="resetForm()")
-                input.button(type='button', value=' Speichern ', onclick="addData()")
-        h2
+                input.button(type='button', value=' Speichern ', onclick="saveDataBtn()")
+                input.button(type='button', value=' Laden ', onclick="loadDataBtn()")
+        h2#patient
             | Versuche2
         #tab
         table#list(cellspacing='5px', cellpadding='20px', text-align='center')
             tr
-                th Bezeichnung
                 th Zeit
                 th Treffer
                 th Fehlversuche
                 th Versuchszeitpunkt
-            tr
                 
         p#lines
         h2

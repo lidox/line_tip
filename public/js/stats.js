@@ -1,4 +1,7 @@
-
+/*
+ obsolete, because maybe we don't want to show data everytime a patient is doing the test. Could be some sort of
+ psychological problem if he could figure out he/she is failing. Maybe move the whole statistics stuff to the mainpage?
+ */
 function addData() {
     try {
         var rows = "";
@@ -13,8 +16,8 @@ function addData() {
             var tr = document.createElement("tr");
 
             tr.innerHTML = rows;
-            tbody.appendChild(tr)
-            resetForm();   
+            tbody.appendChild(tr);
+            resetForm();
         }
         else if(isEmpty(zeit)){
             alert("Bitte erst einen Versuch durchführen, stoppen und dann speichern.");
@@ -26,7 +29,94 @@ function addData() {
         console.log(err.message);
     }
 }
+/*
+ Load the Cookies values and change the Headline of the Table.
+ Cookies are loaded as JSON Data, so we can iterate over each object by itself.
+ Build a variable @tableRow for each set of records
+ The "replace" function is there to accomodate the JSON.stringify - normally it would print with double quotes
+ */
+function lickCookie() {
+    var patient = document.getElementById("bezeichnung").value;
+    var heading = $('#patient');
+    if (patient) {
+        try {
+            var name = $.parseJSON($.cookie(patient));
+        } catch (e) {
+            //console.log(e);
+            //console.log('Something went wrong');
+            heading.text('Patient wurde noch nicht angelegt');
+            return;
+        }
 
+        var tableRow = '';
+        heading.text('Patient:' + name[0]);
+        for (i = 1; i < name.length; i++) {
+            tableRow += '<tr>';
+            $.each(name[i], function (key, value) {
+                $.each(value, function (index, data) {
+                    tableRow += '<td>' + JSON.stringify(data).replace(/"/g, "") + '</td>';
+                });
+            });
+            tableRow += '</tr>';
+        }
+        $('#list').find('tr:last').after(tableRow);
+    }
+}
+/*
+ Simple Button function for the "Laden" button. Better separate the code, so we can easily switch the functions that
+ are being executed on a click
+ */
+function loadDataBtn() {
+    $('#list').find('tbody').children('tr:not(:first)').remove();
+    lickCookie();
+}
+/*
+ Simple Button function for the "Speichern" button. Better separate the code, so we can easily switch the functions that
+ are being executed on a click
+ */
+function saveDataBtn() {
+    if ($.cookie(document.getElementById("bezeichnung").value)) {
+        bakeCookie(0);
+    } else {
+        bakeCookie(1);
+    }
+}
+/*
+ Baking a cookie. Everybody loves cookies, especially the ones with chocolate Chips ;). Chokolate Chips tell the
+ function to create a new Patient - we could check for another cookie with the same name, but ... meh. We don't want
+ to overthink it, do we?
+
+ If the patient already exists we push a new set of records to the end of the list and save it again. New records
+ can be added easily by cloning a line in the variable @values
+ */
+function bakeCookie(chocolateChips) {
+    var patient = document.getElementById("bezeichnung").value;
+    if (chocolateChips) {
+        var name = [patient];
+    } else {
+        try {
+            var name = $.parseJSON($.cookie(patient));
+        } catch (e) {
+            console.log(e);
+            console.log('Something went wrong');
+            return;
+        }
+    }
+    var values = [
+        //{'id':new Date(document.getElementById("id").innerHTML).getTime().toString()},
+        {'zei': document.getElementById("versuchsdauer").innerHTML},
+        {'tre': document.getElementById("treffer").innerHTML},
+        {'feh': document.getElementById("fehlversuche").innerHTML},
+        {'pun': document.getElementById("versuchszeitpunkt").innerHTML}
+    ];
+    name.push(
+        values
+    );
+    $.cookie(patient, JSON.stringify(name));
+}
+/*
+ Unused - why do we need it? We could move the whole statistics part to the main page.
+ */
 function resetForm() {
     document.getElementById("eingabeForm").reset();
     printToHTMLById("versuchsdauer","");
@@ -34,11 +124,15 @@ function resetForm() {
     printToHTMLById("fehlversuche","");
     printToHTMLById("versuchszeitpunkt","");
 }
-
+/*
+ Unused, because we don't use "addData" function anymore
+ */
 function isEmpty(stringToCheck) {
     return (stringToCheck == null || stringToCheck.length === 0);
 }
-
+/*
+ Artur needs to step up his game. Use the Prototypes, man!
+ */
 //trial
 var Trial = function (description, trialTime, hits, fails) {
     this.description = description;

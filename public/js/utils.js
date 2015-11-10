@@ -21,28 +21,34 @@ function spotClickedByUser() {
     playSoundByID('goodaudio');
     zeichneGraph();
 }
-
+/*
+ We should acturally reset the start time, even if the patient is failing all the time. Else we get a undefined -
+ horrible!
+ */
 function spotMissedByUser() {
     console.log('spotMissedByUser');
     countMiss();
     playSoundByID('wrongaudio');
+    if (start_time == null) {
+        start_time = new Date();
+    }
 }
-
+/*
+ Why do we need the Trim Seconds stuff? Too many recursions! Check the Console...
+ */
 function stopTrial() {
     var end_time = lastClickTimeStamp;//new Date();
     var elapsed_ms = end_time - start_time;
     var seconds = Math.round(elapsed_ms / 1000);
     var minutes = Math.round(seconds / 60);
     var hours = Math.round(minutes / 60);
-    var sec = TrimSecondsMinutes(seconds);
-    var min = TrimSecondsMinutes(minutes);
         
     alert('Der Versuch ist abgeschlossen');
     
     printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
     printToHTMLById("fehlversuche",document.getElementById("fails").innerHTML);
     printToHTMLById("versuchszeitpunkt",getDate());
-    printToHTMLById("versuchsdauer",min+" min und "+sec +" s");
+    printToHTMLById("versuchsdauer", minutes + " min und " + seconds + " s");
     var experimentName = getExperimentName();
     //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
     refreshCounters();
@@ -148,13 +154,6 @@ function refreshCounters() {
 // @return {integer} a random int between min and max
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-
-function TrimSecondsMinutes(elapsed) {
-    if (elapsed >= 60)
-        return TrimSecondsMinutes(elapsed - 60);
-    return elapsed;
 }
 
 function drawLine(clipboard, line, lineSize) {
