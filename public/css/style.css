@@ -8,13 +8,10 @@ table, td, th {
     text-align: center
 }
 
-h2 {
-}
-
 .drawcontainer{
 	width: 99%;
     height: 90%;
-    margin: none;
+    margin: 0;
 }
 
 #myCanvas { 
