@@ -18,26 +18,26 @@ html(lang="de", manifest="cache.mf")
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
         p#data
             form(onsubmit="addData(); return false;")#eingabeForm
-                  | Versuchsname: 
-                  input#bezeichnung(value='')
-                  br
-                  | Versuchsdauer: 
-                  a#versuchsdauer
+                | Versuchsname:
+                input#bezeichnung(value='')
+                br
+                | Versuchsdauer:
+                a#versuchsdauer
                 br
                 | id:
                 a#id
-                  br
-                  | Treffer: 
-                  a#treffer
-                  br
-                  | Fehlversuche: 
-                  a#fehlversuche
-                  br
-                  | Versuchszeitpunkt: 
-                  a#versuchszeitpunkt
-                  br
-                  input.button(type='button', value=' Reset ', onclick="resetForm()")
-                  input.button(type='button', value=' Speichern ', onclick="addData()")
+                br
+                | Treffer:
+                a#treffer
+                br
+                | Fehlversuche:
+                a#fehlversuche
+                br
+                | Versuchszeitpunkt:
+                a#versuchszeitpunkt
+                br
+                input.button(type='button', value=' Reset ', onclick="resetForm()")
+                input.button(type='button', value=' Speichern ', onclick="addData()")
         h2
             | Versuche2
         #tab
