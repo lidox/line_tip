@@ -1,18 +1,19 @@
 doctype html
 html(lang="de", manifest="cache.mf")
     head
-        link(rel="stylesheet", type="text/css", href="/css/style.css?v=1")
-        link(rel="stylesheet", type="text/css", href="/css/normalize.css?v=1")
+        link(rel="stylesheet", type="text/css", href="/css/style.css")
+        link(rel="stylesheet", type="text/css", href="/css/normalize.css")
         meta(charset="UTF-8")
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         title Line Detection
         //script(type='text/javascript', src='http://code.jquery.com/jquery.min.js')
         script(src='/js/jquery.min.js')
-        script(src='/js/utils.js?v=1')
-        script(src='/js/stats.js?v=1')
-        script(src='/js/lineDataSet.js?v=1')
-        script(src='/js/fullscreen.js?v=1')
-    body          
+        script(src='/js/utils.js')
+        script(src='/js/stats.js')
+        script(src='/js/lineDataSet.js')
+        script(src='/js/fullscreen.js')
+        script(src='/js/js.cookie.js')
+    body
         audio#goodaudio(src='sound/good.wav', autostart='false')
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
         p#data
@@ -22,6 +23,9 @@ html(lang="de", manifest="cache.mf")
                   br
                   | Versuchsdauer: 
                   a#versuchsdauer
+                br
+                | id:
+                a#id
                   br
                   | Treffer: 
                   a#treffer
