@@ -4,6 +4,7 @@ html(lang="de")
     head
         link(rel="stylesheet", type="text/css", href="/css/style.css")
         link(rel="stylesheet", type="text/css", href="/css/normalize.css")
+        link(rel="stylesheet", type="text/css", href="/css/bootstrap.css")
         meta(charset="UTF-8")
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         title Line Detection
@@ -18,44 +19,50 @@ html(lang="de")
         audio#goodaudio(src='sound/good.wav', autostart='false')
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
         p#data
-            form(onsubmit="saveData(); return false;")#eingabeForm
-                | Versuchsname:
-                input#bezeichnung(value='')
-                br
-                | Versuchsdauer:
-                a#versuchsdauer
-                br
-                | Treffer:
-                a#treffer
-                br
-                | Fehlversuche:
-                a#fehlversuche
-                br
-                | Versuchszeitpunkt:
-                a#versuchszeitpunkt
-                br
-                input.button(type='button', value=' Reset ', onclick="resetForm()")
-                input.button(type='button', value=' Speichern ', onclick="saveDataBtn()")
-                input.button(type='button', value=' Laden ', onclick="loadDataBtn()")
-        h2#patient
-            | Versuche2
-        #tab
-        table#list(cellspacing='5px', cellpadding='20px', text-align='center')
-            tr
-                th Zeit
-                th Treffer
-                th Fehlversuche
-                th Versuchszeitpunkt
-                
-        p#lines
-        h2
-          | getroffen: 
-          a#clicks 0
-          |   und verfehlt: 
-          a#fails 0
-        input.button(type='button', value=' Stop ', onclick='stopTrial()')
+            .col-md-12
+                form(onsubmit="saveData(); return false;")#eingabeForm
+                    label Versuchsname:
+                    input#bezeichnung(value='',class="form-control")
+                    br
+                    label Versuchsdauer:
+                    a#versuchsdauer
+                    br
+                    label Treffer:
+                    a#treffer
+                    br
+                    label Fehlversuche:
+                    a#fehlversuche
+                    br
+                    label Versuchszeitpunkt:
+                    a#versuchszeitpunkt
+                    br
+                    input.button(type='button', value=' Reset ',class="btn btn-primary", onclick="resetForm()")
+                    label &nbsp
+                    input.button(type='button', value=' Speichern ',class="btn btn-primary", onclick="saveDataBtn()")
+                    label &nbsp;
+                    input.button(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn()")
+                    br
+        .col-md-12
+            h2#patient
+                | Versuche
+            #tab
+            table#list(cellspacing='5px', cellpadding='20px', text-align='center')
+                tr
+                    th Zeit
+                    th Treffer
+                    th Fehlversuche
+                    th Versuchszeitpunkt
+
+            p#lines
+        .col-md-12
+            h2
+              | getroffen: 
+              a#clicks 0
+              |   und verfehlt: 
+              a#fails 0
+              label &nbsp;
+              input.button(type='button', value=' Stop ',class="btn btn-primary", onclick='stopTrial()')
         .drawcontainer
             canvas#myCanvas(width='1024', height='768')
-            //canvas#myCanvas(style='border:1px solid #d3d3d3;')
-        script.
-            zeichneGraph();  
+            script.
+                zeichneGraph();  

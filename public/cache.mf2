@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2015-11-09:v1
+# 2015-11-15:v2
 
 # Explicitly cached 'master entries'.
 CACHE:
@@ -15,6 +15,7 @@ sound/wrong.wav
 
 css/normalize.css
 css/style.css
+css/bootstrap.css
 
 linetip
 #stylesheet.css

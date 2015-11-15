@@ -3,9 +3,13 @@ table {
     border-collapse: collapse;
 }
 
-table, td, th {
+table, tbody, tr, td, th {
     border: 1px solid black;
     text-align: center
+}
+
+tbody .tr .td {
+	text-align: center !important
 }
 
 .drawcontainer{
@@ -51,4 +55,31 @@ table, td, th {
 
 .clearfix {
   *zoom: 1; /* Für den IE6 und IE7 */
+}
+
+html {
+	direction: ltr;
+	overflow-x: hidden;
+}
+
+body {
+	background-color: #FFF;
+	color: #777;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 14px;
+	line-height: 22px;
+	margin: 0;
+	overflow-x: hidden;
+}
+
+body a {
+	outline: none !important;
+}
+
+li {
+	line-height: 24px;
+}
+#header {
+	position: relative;
+	z-index: 100;
 }
