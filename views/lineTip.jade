@@ -21,7 +21,7 @@ html(lang="de")
         p#data
             .col-md-12
                 form(onsubmit="saveData(); return false;")#eingabeForm
-                    label Versuchsname:
+                    label MED-ID:
                     input#bezeichnung(value='',class="form-control")
                     br
                     label Versuchsdauer:
@@ -36,15 +36,15 @@ html(lang="de")
                     label Versuchszeitpunkt:
                     a#versuchszeitpunkt
                     br
-                    input.button(type='button', value=' Reset ',class="btn btn-primary", onclick="resetForm()")
+                    //input.button(type='button', value=' Reset ',class="btn btn-primary", onclick="resetForm()")
                     label &nbsp
-                    input.button(type='button', value=' Speichern ',class="btn btn-primary", onclick="saveDataBtn()")
+                    input.button(type='button', value=' Speichern ',class="btn btn-primary", onclick="saveDataBtn(); loadDataBtn(); resetForm();")
                     label &nbsp;
                     input.button(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn()")
                     br
         .col-md-12
             h2#patient
-                | Versuche
+                label Patient:
             #tab
             table#list(cellspacing='5px', cellpadding='20px', text-align='center')
                 tr
@@ -65,4 +65,6 @@ html(lang="de")
         .drawcontainer
             canvas#myCanvas(width='1024', height='768')
             script.
-                zeichneGraph();  
+                zeichneGraph();
+            script.
+                loadDataBtn();

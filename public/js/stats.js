@@ -71,10 +71,25 @@ function loadDataBtn() {
     lickCookie();
 }
 /*
+ Does a validation before saving the cookie
+ */
+function getDataReadyForCookies() {
+    var zeit = document.getElementById("versuchsdauer").innerHTML;
+    var bezeichnung = document.getElementById("bezeichnung");
+    if(isEmpty(bezeichnung.value)){
+        var result = prompt("Bitte die MED-ID für diesen Versuch angeben.");
+        document.getElementById('bezeichnung').value = result+'';
+    }
+    if(isEmpty(bezeichnung.value)){
+        return;
+    }
+}
+/*
  Simple Button function for the "Speichern" button. Better separate the code, so we can easily switch the functions that
  are being executed on a click
  */
 function saveDataBtn() {
+    getDataReadyForCookies();
     if ($.cookie(document.getElementById("bezeichnung").value)) {
         bakeCookie(0);
     } else {
