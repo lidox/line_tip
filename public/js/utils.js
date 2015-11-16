@@ -8,7 +8,7 @@ var canvasSpots = [];
 var isHidden = false;
 
 //configuration
-var isMiddleVisible = true;
+var isMiddleVisible = false;
 var amountOfLines = 800;
 spotPercentageWidth = 0.23;
 var generatorType = 'NOTrandom';
@@ -72,7 +72,7 @@ function zeichneGraph(){
 
     // clear clipboard!
     clipboard.width+=0;
-	addButtonToCanvas();
+	//addButtonToCanvas();
     
     if(amountOfLines<=clicks){
         stopTrial();
@@ -90,7 +90,18 @@ function zeichneGraph(){
     addSpotToSpotsList(elements, spotSize, line);
 
     drawSpot(elements);
-
+    
+    elements.push({
+		  width: 40,
+		  height: 30,
+		  top: 10,
+		  left: 980
+	});
+	
+    element = elements[1];
+    document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(153, 0, 0, 0.8)';
+    document.getElementById('myCanvas').getContext('2d').fillRect(element.left, element.top, element.width, element.height);
+    
     //if spot clicked -> spotClickedByUser() will be executed
     //otherwise spotMissedByUser() will be executed
     addSpotListener(elements);
@@ -107,8 +118,18 @@ function addSpotListener(elements) {
         var x = event.pageX - elemLeft,
         y = event.pageY - elemTop;
         
+        var element = elements[1];
+            //console.log('check where user clicked to:');
+            lastClickTimeStamp = new Date();
+            if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+                if(element.left==980){
+                    onCanvasBtn();
+                    return;
+                }
+            }
         // Collision detection between clicked offset and element.
-        elements.forEach(function(element) {
+        //elements.forEach(function(element) {
+        var element = elements[0];
             //console.log('check where user clicked to:');
             lastClickTimeStamp = new Date();
             if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
@@ -118,7 +139,7 @@ function addSpotListener(elements) {
             else{
                 spotMissedByUser();
             }
-        });
+        //});
     }, false);
 }
 
@@ -254,41 +275,6 @@ function hideAll() {
 }
 function showAll() {
     $(".col-md-12, #data").show();
-}
-
-function addButtonToCanvas() {
-	canvasSpots.push({
-		  width: 40,
-		  height: 30,
-		  top: 10,
-		  left: 980
-	});
-	
-	canvasSpots.forEach(function(element) {
-        //alert('element');
-        //context.fillStyle = element.colour;
-        document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(153, 0, 0, 0.8)';
-        document.getElementById('myCanvas').getContext('2d').fillRect(element.left, element.top, element.width, element.height);
-     });
-	
-    document.getElementById('myCanvas').addEventListener('click', function(event) {
-        var elemLeft = document.getElementById('myCanvas').offsetLeft;
-        var elemTop = document.getElementById('myCanvas').offsetTop;
-        var x = event.pageX - elemLeft,
-        y = event.pageY - elemTop;
-        
-        // Collision detection between clicked offset and element.
-        canvasSpots.forEach(function(element) {
-            //console.log('check where user clicked to:');
-            lastClickTimeStamp = new Date();
-            if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
-				onCanvasBtn();
-            }
-            else{
-                //console.log('button im canvas verfehlt');
-            }
-        });
-    }, false);
 }
 
 function toggleShowAll() {
