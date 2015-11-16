@@ -245,3 +245,9 @@ Line.prototype.getLength = function() {
     return result;
 };
 
+function hideAll() {
+    $(".col-md-12, #data").hide();
+}
+function showAll() {
+    $(".col-md-12, #data").show();
+}
