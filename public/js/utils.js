@@ -247,6 +247,7 @@ Line.prototype.getLength = function() {
 
 function hideAll() {
     $(".col-md-12, #data").hide();
+    $(document).scrollTop($("#myCanvas").offset().top);
 }
 function showAll() {
     $(".col-md-12, #data").show();
