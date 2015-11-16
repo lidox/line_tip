@@ -4,9 +4,11 @@ var fails = 0;
 var scoreText = "";
 var start_time;
 var lastClickTimeStamp = new Date();
+var canvasSpots = [];
+var isHidden = false;
 
 //configuration
-var isMiddleVisible = false;
+var isMiddleVisible = true;
 var amountOfLines = 800;
 spotPercentageWidth = 0.23;
 var generatorType = 'NOTrandom';
@@ -70,6 +72,7 @@ function zeichneGraph(){
 
     // clear clipboard!
     clipboard.width+=0;
+	addButtonToCanvas();
     
     if(amountOfLines<=clicks){
         stopTrial();
@@ -251,4 +254,55 @@ function hideAll() {
 }
 function showAll() {
     $(".col-md-12, #data").show();
+}
+
+function addButtonToCanvas() {
+	canvasSpots.push({
+		  width: 40,
+		  height: 30,
+		  top: 10,
+		  left: 980
+	});
+	
+	canvasSpots.forEach(function(element) {
+        //alert('element');
+        //context.fillStyle = element.colour;
+        document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(153, 0, 0, 0.8)';
+        document.getElementById('myCanvas').getContext('2d').fillRect(element.left, element.top, element.width, element.height);
+     });
+	
+    document.getElementById('myCanvas').addEventListener('click', function(event) {
+        var elemLeft = document.getElementById('myCanvas').offsetLeft;
+        var elemTop = document.getElementById('myCanvas').offsetTop;
+        var x = event.pageX - elemLeft,
+        y = event.pageY - elemTop;
+        
+        // Collision detection between clicked offset and element.
+        canvasSpots.forEach(function(element) {
+            //console.log('check where user clicked to:');
+            lastClickTimeStamp = new Date();
+            if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+				onCanvasBtn();
+            }
+            else{
+                //console.log('button im canvas verfehlt');
+            }
+        });
+    }, false);
+}
+
+function toggleShowAll() {
+    if(isHidden){
+		showAll();
+		isHidden = false;
+	}
+	else{
+		hideAll();
+		isHidden = true;
+	}
+}
+
+function onCanvasBtn() {
+	toggleShowAll();
+    console.log('button im canvas geklickt');
 }

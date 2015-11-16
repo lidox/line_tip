@@ -64,10 +64,11 @@ html(lang="de")
               a#fails 0
               label &nbsp;
               input.button(type='button', value=' Stop ',class="btn btn-primary", onclick='stopTrial()')
-        input.button(type='button', value='Start', class="btn btn-btn-primary", onclick='hideAll()')
-        input.button(type='button', value='Stop', class="btn btn-btn-primary", onclick='showAll()')
+        //input.button(type='button', value='Start', class="btn btn-btn-primary", onclick='hideAll()')
+        //input.button(type='button', value='Stop', class="btn btn-btn-primary", onclick='showAll()')
         .drawcontainer
             canvas#myCanvas(width='1024', height='768')
             script.
                 zeichneGraph();
                 loadDataBtn();
+                addButtonToCanvas();
