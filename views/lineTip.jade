@@ -20,7 +20,7 @@ html(lang="de")
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
         p#data
             .col-md-12
-                form(onsubmit="saveData(); return false;")#eingabeForm
+                form(onsubmit="return false;")#eingabeForm
                     label MED-ID:
                     input#bezeichnung(value='',class="form-control")
                     br
@@ -38,7 +38,7 @@ html(lang="de")
                     br
                     //input.button(type='button', value=' Reset ',class="btn btn-primary", onclick="resetForm()")
                     label &nbsp
-                    input.button(type='button', value=' Speichern ',class="btn btn-primary", onclick="saveDataBtn(); loadDataBtn(); resetForm();")
+                    input.button(type='button', value=' Speichern ',class="btn btn-primary", onclick="saveDataBtn()")
                     label &nbsp;
                     input.button(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn()")
                     br

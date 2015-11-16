@@ -49,7 +49,7 @@ function lickCookie() {
         }
 
         var tableRow = '';
-        heading.text('Patient:' + name[0]);
+        heading.text('MED-ID: ' + name[0]);
         for (i = 1; i < name.length; i++) {
             tableRow += '<tr>';
             $.each(name[i], function (key, value) {
@@ -73,28 +73,36 @@ function loadDataBtn() {
 /*
  Does a validation before saving the cookie
  */
-function getDataReadyForCookies() {
-    var zeit = document.getElementById("versuchsdauer").innerHTML;
-    var bezeichnung = document.getElementById("bezeichnung");
-    if(isEmpty(bezeichnung.value)){
+function isUserInputCorrect() {
+    var timeStamp = document.getElementById("versuchsdauer").innerHTML;
+    var description = document.getElementById("bezeichnung").value;
+    if(isEmpty(description)){
         var result = prompt("Bitte die MED-ID für diesen Versuch angeben.");
-        document.getElementById('bezeichnung').value = result+'';
+        document.getElementById('bezeichnung').value = result; 
+        if(isEmpty(result)){
+            isUserInputCorrect();
+        }
     }
-    if(isEmpty(bezeichnung.value)){
-        return;
-    }
+    return (!isEmpty(timeStamp));
+
 }
+
 /*
  Simple Button function for the "Speichern" button. Better separate the code, so we can easily switch the functions that
  are being executed on a click
  */
 function saveDataBtn() {
-    getDataReadyForCookies();
-    if ($.cookie(document.getElementById("bezeichnung").value)) {
-        bakeCookie(0);
+    if (isUserInputCorrect()) {
+        if ($.cookie(document.getElementById("bezeichnung").value)) {
+            bakeCookie(0);
+        } else {
+            bakeCookie(1);
+        }
+        resetForm();
     } else {
-        bakeCookie(1);
-    }
+       console.log('wrong input');
+       alert("Bitte erst einen Versuch durchführen, stoppen und dann speichern.");
+    }  
 }
 /*
  Baking a cookie. Everybody loves cookies, especially the ones with chocolate Chips ;). Chokolate Chips tell the
@@ -133,7 +141,7 @@ function bakeCookie(chocolateChips) {
  Unused - why do we need it? We could move the whole statistics part to the main page.
  */
 function resetForm() {
-    document.getElementById("eingabeForm").reset();
+    //ocument.getElementById("eingabeForm").reset();
     printToHTMLById("versuchsdauer","");
     printToHTMLById("treffer","");
     printToHTMLById("fehlversuche","");
