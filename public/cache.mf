@@ -1,14 +1,14 @@
 CACHE MANIFEST
-# 2015-11-15:v2
+# 2015-11-16:v1
 
 # Explicitly cached 'master entries'.
 CACHE:
-js/fullscreen.js
 js/lineDataSet.js
 js/LineField.js
 js/stats.js
 js/utils.js
 js/jquery.min.js
+js/js.cookie.js
 
 sound/good.wav
 sound/wrong.wav
@@ -16,23 +16,3 @@ sound/wrong.wav
 css/normalize.css
 css/style.css
 css/bootstrap.css
-
-linetip
-#stylesheet.css
-#images/logo.png
-#scripts/main.js
-#/favicon.ico
-
-# Resources that require the user to be online.
-#NETWORK:
-#login.php
-#/myapi
-#http://api.twitter.com
-
-# static.html will be served if main.py is inaccessible
-# offline.jpg will be served in place of all images in images/large/
-# offline.html will be served in place of all other .html files
-#FALLBACK:
-#/main.py /static.html
-#images/large/ images/offline.jpg
-#*.html /offline.html
