@@ -121,17 +121,21 @@ function addSpotListener(elements) {
         var element = elements[1];
             //console.log('check where user clicked to:');
             lastClickTimeStamp = new Date();
-            if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+            if(element!=undefined){
+             if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
                 if(element.left==980){
                     onCanvasBtn();
                     return;
                 }
+               }
             }
+
         // Collision detection between clicked offset and element.
         //elements.forEach(function(element) {
         var element = elements[0];
             //console.log('check where user clicked to:');
             lastClickTimeStamp = new Date();
+        if(element!=undefined){
             if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
                 elements = [];
                 spotClickedByUser();
@@ -139,6 +143,7 @@ function addSpotListener(elements) {
             else{
                 spotMissedByUser();
             }
+        }
         //});
     }, false);
 }
