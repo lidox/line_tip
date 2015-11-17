@@ -45,7 +45,7 @@ function stopTrial() {
     var minutes = Math.round(seconds / 60);
     var hours = Math.round(minutes / 60);
         
-    alert('Der Versuch ist abgeschlossen');
+    //alert('Der Versuch ist abgeschlossen');
     
     printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
     printToHTMLById("fehlversuche",document.getElementById("fails").innerHTML);
@@ -53,7 +53,7 @@ function stopTrial() {
     printToHTMLById("versuchsdauer", minutes + " min und " + seconds + " s");
     var experimentName = getExperimentName();
     //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
-    refreshCounters();
+    //refreshCounters();
     start_time = null;
     clicks = 0;
     
@@ -228,7 +228,7 @@ function getExperimentName() {
     try {
         text = document.getElementById("bezeichnung").value;
         if(text===''){
-            alert('Bitte einen Namen für den Versuch angeben!');
+            //alert('Bitte einen Namen für den Versuch angeben!');
         }
     }
     catch(err) {
@@ -293,7 +293,22 @@ function toggleShowAll() {
 	}
 }
 
+function startAndStopTrial() {
+    if(isHidden){
+        //start
+        resetForm();
+        refreshCounters();
+        // timebug
+	}
+	else{
+        //stop
+        stopTrial();
+        saveDataBtn();
+	}
+}
+
 function onCanvasBtn() {
 	toggleShowAll();
+    startAndStopTrial();
     console.log('button im canvas geklickt');
 }
