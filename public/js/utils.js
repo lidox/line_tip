@@ -312,7 +312,7 @@ function onCanvasBtn() {
     startAndStopTrial();
     console.log('button im canvas geklickt');
 }
-$('html, body').on('touchstart touchmove', function (e) {
+//$('html, body').on('touchstart touchmove', function (e) {
     //prevent native touch activity like scrolling
-    e.preventDefault();
-});
+//    e.preventDefault();
+//});
