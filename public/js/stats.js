@@ -1,35 +1,4 @@
 /*
- obsolete, because maybe we don't want to show data everytime a patient is doing the test. Could be some sort of
- psychological problem if he could figure out he/she is failing. Maybe move the whole statistics stuff to the mainpage?
- */
-function addData() {
-    try {
-        var rows = "";
-        var bezeichnung = document.getElementById("bezeichnung");
-        var zeit = document.getElementById("versuchsdauer").innerHTML;
-        var treffer = document.getElementById("treffer").innerHTML;
-        var fehlversuche = document.getElementById("fehlversuche").innerHTML;
-        var versuchszeitpunkt = document.getElementById("versuchszeitpunkt").innerHTML;
-        if(!isEmpty(bezeichnung.value) && !isEmpty(zeit)){
-            rows += "<td>" + bezeichnung.value + "</td><td>" + zeit + "</td><td>" + treffer + "</td><td>" + fehlversuche + "</td><td>" + versuchszeitpunkt + "</td>";
-            var tbody = document.querySelector("#list tbody");
-            var tr = document.createElement("tr");
-
-            tr.innerHTML = rows;
-            tbody.appendChild(tr);
-            resetForm();
-        }
-        else if(isEmpty(zeit)){
-            alert("Bitte erst einen Versuch durchführen, stoppen und dann speichern.");
-        }
-        else{
-            alert("Bitte eine Bezeichnung für diesen Versuch angeben.");
-        }
-    }catch(err) {
-        console.log(err.message);
-    }
-}
-/*
  Load the Cookies values and change the Headline of the Table.
  Cookies are loaded as JSON Data, so we can iterate over each object by itself.
  Build a variable @tableRow for each set of records
@@ -100,8 +69,8 @@ function saveDataBtn() {
         }
         //resetForm();
     } else {
-       console.log('wrong input');
-       alert("Bitte erst einen Versuch durchführen, stoppen und dann speichern.");
+        console.log('wrong input saveData');
+        return;
     }  
 }
 /*
