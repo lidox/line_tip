@@ -98,7 +98,7 @@ function saveDataBtn() {
         } else {
             bakeCookie(1);
         }
-        resetForm();
+        //resetForm();
     } else {
        console.log('wrong input');
        alert("Bitte erst einen Versuch durchführen, stoppen und dann speichern.");

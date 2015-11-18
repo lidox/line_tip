@@ -45,7 +45,7 @@ function stopTrial() {
     var minutes = Math.round(seconds / 60);
     var hours = Math.round(minutes / 60);
         
-    alert('Der Versuch ist abgeschlossen');
+    //alert('Der Versuch ist abgeschlossen');
     
     printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
     printToHTMLById("fehlversuche",document.getElementById("fails").innerHTML);
@@ -53,7 +53,7 @@ function stopTrial() {
     printToHTMLById("versuchsdauer", minutes + " min und " + seconds + " s");
     var experimentName = getExperimentName();
     //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
-    refreshCounters();
+    //refreshCounters();
     start_time = null;
     clicks = 0;
     
@@ -121,17 +121,21 @@ function addSpotListener(elements) {
         var element = elements[1];
             //console.log('check where user clicked to:');
             lastClickTimeStamp = new Date();
-            if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+            if(element!=undefined){
+             if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
                 if(element.left==980){
                     onCanvasBtn();
                     return;
                 }
+               }
             }
+
         // Collision detection between clicked offset and element.
         //elements.forEach(function(element) {
         var element = elements[0];
             //console.log('check where user clicked to:');
             lastClickTimeStamp = new Date();
+        if(element!=undefined){
             if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
                 elements = [];
                 spotClickedByUser();
@@ -139,6 +143,7 @@ function addSpotListener(elements) {
             else{
                 spotMissedByUser();
             }
+        }
         //});
     }, false);
 }
@@ -223,7 +228,7 @@ function getExperimentName() {
     try {
         text = document.getElementById("bezeichnung").value;
         if(text===''){
-            alert('Bitte einen Namen für den Versuch angeben!');
+            //alert('Bitte einen Namen für den Versuch angeben!');
         }
     }
     catch(err) {
@@ -288,7 +293,22 @@ function toggleShowAll() {
 	}
 }
 
+function startAndStopTrial() {
+    if(isHidden){
+        //start
+        resetForm();
+        refreshCounters();
+        // timebug
+	}
+	else{
+        //stop
+        stopTrial();
+        saveDataBtn();
+	}
+}
+
 function onCanvasBtn() {
 	toggleShowAll();
+    startAndStopTrial();
     console.log('button im canvas geklickt');
 }
