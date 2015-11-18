@@ -26,13 +26,30 @@ tbody .tr .td {
 #list {
     width: 100%;
 }
+
+#list th {
+    text-align: center;
+}
 #myCanvas { 
   float: none;  
     background-color: black;
     display: block;
   //width: 1024px;
   //height: 768;
-} 
+}
+
+#eingabeForm label {
+    display: block;
+}
+
+#bezeichnung {
+    display: inline-block;
+    width: 65%
+}
+
+#loading {
+    margin-left: 5%;
+}
 
 @media only screen and (orientation:portrait){
   body {    
