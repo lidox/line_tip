@@ -21,32 +21,27 @@ html(lang="de")
         audio#goodaudio(src='sound/good.wav', autostart='false')
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
         p#data
-        .col-md-12
+        .col-md-3.hideMe
             form(onsubmit="return false;")#eingabeForm
                 label MED-ID:
                 input#bezeichnung(value='',class="form-control")
+                input.button#loading(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn()")
                 //input.button(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn()")
-                br
                 label Versuchsdauer:
                 a#versuchsdauer
-                br
                 label Treffer:
                 a#treffer
-                br
                 label Fehlversuche:
                 a#fehlversuche
-                br
                 label Versuchszeitpunkt:
                 a#versuchszeitpunkt
-                br
                 //input.button(type='button', value=' Reset ',class="btn btn-primary", onclick="resetForm()")
                 label &nbsp
                 //input.button(type='button', value=' Speichern ',class="btn btn-primary", onclick="saveDataBtn()")
                 label &nbsp;
-                input.button(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn()")
-                br
-        .col-md-12
-            h2#patient
+
+        .col-md-9.hideMe
+            label#patient
                 label Patient:
             #tab
             table#list(cellspacing='5px', cellpadding='20px', text-align='center')
