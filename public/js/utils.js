@@ -3,7 +3,7 @@ var clicks = 0;
 var fails = 0;
 var scoreText = "";
 var start_time;
-var lastClickTimeStamp = new Date();
+var lastClickTimeStamp;
 var canvasSpots = [];
 var isHidden = false;
 
@@ -39,25 +39,31 @@ function spotMissedByUser() {
  Why do we need the Trim Seconds stuff? Too many recursions! Check the Console...
  */
 function stopTrial() {
-    var end_time = lastClickTimeStamp;//new Date();
-    var elapsed_ms = end_time - start_time;
-    var seconds = Math.round(elapsed_ms / 1000);
-    var minutes = Math.round(seconds / 60);
-    var hours = Math.round(minutes / 60);
-        
-    //alert('Der Versuch ist abgeschlossen');
-    
-    printToHTMLById("treffer",document.getElementById("clicks").innerHTML);
-    printToHTMLById("fehlversuche",document.getElementById("fails").innerHTML);
-    printToHTMLById("versuchszeitpunkt",getDate());
-    printToHTMLById("versuchsdauer", minutes + " min und " + seconds + " s");
-    var experimentName = getExperimentName();
-    //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
-    //refreshCounters();
-    start_time = null;
-    clicks = 0;
-    
-    return;
+    if ((clicks > 0 && fails == 0) || (clicks == 0 && fails > 0) || (clicks > 0 && fails > 0)) {
+        console.log(clicks, fails);
+        var end_time = lastClickTimeStamp;//new Date();
+        var elapsed_ms = end_time - start_time;
+        var seconds = Math.round(elapsed_ms / 1000);
+        var minutes = Math.round(seconds / 60);
+        var hours = Math.round(minutes / 60);
+
+        //alert('Der Versuch ist abgeschlossen');
+
+        printToHTMLById("treffer", document.getElementById("clicks").innerHTML);
+        printToHTMLById("fehlversuche", document.getElementById("fails").innerHTML);
+        printToHTMLById("versuchszeitpunkt", getDate());
+        printToHTMLById("versuchsdauer", minutes + " min und " + seconds + " s");
+        var experimentName = getExperimentName();
+        //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
+        //refreshCounters();
+        start_time = null;
+        clicks = 0;
+
+        return;
+    }
+    else {
+        return;
+    }
 }
 
 function zeichneGraph(){
@@ -120,7 +126,7 @@ function addSpotListener(elements) {
         
         var element = elements[1];
             //console.log('check where user clicked to:');
-            lastClickTimeStamp = new Date();
+        //lastClickTimeStamp = new Date();
             if(element!=undefined){
              if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
                 if(element.left==980){
@@ -275,11 +281,11 @@ Line.prototype.getLength = function() {
 };
 
 function hideAll() {
-    $(".col-md-12, #data").hide();
+    $(".col-md-12, #data, .hideMe").hide();
     $(document).scrollTop($("#myCanvas").offset().top);
 }
 function showAll() {
-    $(".col-md-12, #data").show();
+    $(".col-md-12, #data, .hideMe").show();
 }
 
 function toggleShowAll() {
@@ -288,6 +294,7 @@ function toggleShowAll() {
 		isHidden = false;
 	}
 	else{
+        start_time = new Date();
 		hideAll();
 		isHidden = true;
 	}
@@ -310,9 +317,8 @@ function startAndStopTrial() {
 function onCanvasBtn() {
 	toggleShowAll();
     startAndStopTrial();
-    console.log('button im canvas geklickt');
+    //console.log('button im canvas geklickt');
 }
-$('html, body').on('touchstart touchmove', function (e) {
-    //prevent native touch activity like scrolling
-    e.preventDefault();
+$(document).bind("touchmove", function (event) {
+    event.preventDefault();
 });
