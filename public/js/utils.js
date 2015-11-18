@@ -20,7 +20,8 @@ var amountOfLinesToPrint = 1000;
 function spotClickedByUser() {
     console.log('spotClickedByUser');
     countHit();
-    playSoundByID('goodaudio');
+    play();
+    //playSoundByID('goodaudio');
     zeichneGraph();
 }
 /*

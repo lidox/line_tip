@@ -1,7 +1,7 @@
 doctype html
-//html(lang="de")
 html(lang="de", manifest="cache.mf")
     head
+        //html(lang="de")
         link(rel="stylesheet", type="text/css", href="/css/style.css")
         link(rel="stylesheet", type="text/css", href="/css/normalize.css")
         link(rel="stylesheet", type="text/css", href="/css/bootstrap.css")
@@ -17,6 +17,8 @@ html(lang="de", manifest="cache.mf")
         script(src='/js/lineDataSet.js')
         script(src='/js/fullscreen.js')
         script(src='/js/js.cookie.js')
+        script(src='/sound/base64-binary.js')
+        script(src='/sound/good.js')
     body
         audio#goodaudio(src='sound/good.wav', autostart='false')
         audio#wrongaudio(src='sound/wrong.wav', autostart='false')
@@ -66,3 +68,28 @@ html(lang="de", manifest="cache.mf")
                 zeichneGraph();
                 loadDataBtn();
                 //addButtonToCanvas();
+            script(type='text/javascript').
+                var myAudioContext, mySource, myBuffer;
+                if ('AudioContext' in window) {
+                myAudioContext = new AudioContext();
+                } else if ('webkitAudioContext' in window) {
+                myAudioContext = new webkitAudioContext();
+                } else {
+                alert('Your browser does not support yet Web Audio API');
+                }
+                function play () {
+                mySource = myAudioContext.createBufferSource();
+                mySource.buffer = myBuffer;
+                mySource.connect(myAudioContext.destination);
+                if ('AudioContext' in window) {
+                mySource.start(0);
+                } else if ('webkitAudioContext' in window) {
+                mySource.noteOn(0);
+                }
+                }
+                var load = (function (url) {
+                var arrayBuff = Base64Binary.decodeArrayBuffer(sound);
+                myAudioContext.decodeAudioData(arrayBuff, function(audioData) {
+                myBuffer = audioData;
+                });
+                }());
