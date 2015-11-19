@@ -306,13 +306,13 @@ function startAndStopTrial() {
         //start
         resetForm();
         refreshCounters();
-        //$(document).bind('touchmove', false);
+        $(body).bind('touchmove', false);
 	}
 	else{
         //stop
         stopTrial();
         saveDataBtn();
-		//$(document).bind('touchmove', false);
+		$(body).bind('touchmove', true);
 	}
 }
 
