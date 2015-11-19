@@ -306,12 +306,13 @@ function startAndStopTrial() {
         //start
         resetForm();
         refreshCounters();
-        // timebug
+        //$(document).bind('touchmove', false);
 	}
 	else{
         //stop
         stopTrial();
         saveDataBtn();
+		//$(document).bind('touchmove', false);
 	}
 }
 
@@ -320,6 +321,3 @@ function onCanvasBtn() {
     startAndStopTrial();
     //console.log('button im canvas geklickt');
 }
-$(document).bind("touchmove", function (event) {
-    event.preventDefault();
-});

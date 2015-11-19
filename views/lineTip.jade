@@ -1,7 +1,6 @@
 doctype html
 html(lang="de", manifest="cache.mf")
     head
-        //html(lang="de")
         link(rel="stylesheet", type="text/css", href="/css/style.css")
         link(rel="stylesheet", type="text/css", href="/css/normalize.css")
         link(rel="stylesheet", type="text/css", href="/css/bootstrap.css")
@@ -10,7 +9,6 @@ html(lang="de", manifest="cache.mf")
         meta(name="apple-mobile-web-app-status-bar-style", content="black")
         meta(name='viewport', content='user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0')
         title Line Detection
-        //script(type='text/javascript', src='http://code.jquery.com/jquery.min.js')
         script(src='/js/jquery.min.js')
         script(src='/js/utils.js')
         script(src='/js/stats.js')
@@ -28,20 +26,15 @@ html(lang="de", manifest="cache.mf")
                 label MED-ID:
                 input#bezeichnung(value='',class="form-control")
                 input.button#loading(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn()")
-                //input.button(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn()")
                 label Versuchsdauer:
                 a#versuchsdauer
-                label Treffer:
+                label Trefferrrr:
                 a#treffer
                 label Fehlversuche:
                 a#fehlversuche
                 label Versuchszeitpunkt:
                 a#versuchszeitpunkt
-                //input.button(type='button', value=' Reset ',class="btn btn-primary", onclick="resetForm()")
                 label &nbsp
-                //input.button(type='button', value=' Speichern ',class="btn btn-primary", onclick="saveDataBtn()")
-                label &nbsp;
-
         .col-md-9.hideMe
             label#patient
                 label Patient:
@@ -52,7 +45,6 @@ html(lang="de", manifest="cache.mf")
                     th Treffer
                     th Fehlversuche
                     th Versuchszeitpunkt
-
             p#lines
         .col-md-12.hideMe
             h2
@@ -61,10 +53,8 @@ html(lang="de", manifest="cache.mf")
               |   und verfehlt: 
               a#fails 0
               label &nbsp;
-              //input.button(type='button', value=' Stop ',class="btn btn-primary", onclick='stopTrial()')
         .drawcontainer
             canvas#myCanvas(width='1024', height='748')
             script.
                 zeichneGraph();
                 loadDataBtn();
-                //addButtonToCanvas();
