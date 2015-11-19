@@ -10,7 +10,7 @@ js/utils.js
 js/js.cookie.js
 sound/base64-binary.js
 sound/good.js
-sound/good.wav
+#sound/good.wav
 sound/wrong.wav
 css/normalize.css
 css/style.css
