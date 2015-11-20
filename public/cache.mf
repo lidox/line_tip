@@ -3,20 +3,16 @@ CACHE MANIFEST
 
 # Explicitly cached 'master entries'.
 CACHE:
-js/lineDataSet.js
-js/LineField.js
-js/stats.js
-js/utils.js
+js/jquery.min.js
 js/js.cookie.js
-sound/base64-binary.js
-sound/good.js
-#sound/good.wav
-sound/wrong.wav
+js/fastclick.js
+js/utils.js
+js/stats.js
+js/lineDataSet.js
 css/normalize.css
+css/bootstrap.css
 css/style.css
 
-css/bootstrap.css
-js/jquery.min.js
 
 #stylesheet.css
 #images/logo.png
