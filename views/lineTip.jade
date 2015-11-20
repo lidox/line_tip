@@ -10,25 +10,22 @@ html(lang="de", manifest="cache.mf")
         meta(name='viewport', content='user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0')
         title Line Detection
         script(src='/js/jquery.min.js')
+        script(src='/js/js.cookie.js')
+        script(src='/js/fastclick.js')
         script(src='/js/utils.js')
         script(src='/js/stats.js')
         script(src='/js/lineDataSet.js')
-        script(src='/js/fullscreen.js')
-        script(src='/js/js.cookie.js')
-        script(src='/sound/base64-binary.js')
-        script(src='/sound/good.js')
+        
     body
-        audio#goodaudio(src='sound/good.wav', autostart='false')
-        audio#wrongaudio(src='sound/wrong.wav', autostart='false')
         p#data
         .col-md-3.hideMe
             form(onsubmit="return false;")#eingabeForm
                 label MED-ID:
                 input#bezeichnung(value='',class="form-control")
-                input.button#loading(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn()")
+                input.button#loading(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn();")
                 label Versuchsdauer:
                 a#versuchsdauer
-                label Trefferrrr:
+                label Treffer:
                 a#treffer
                 label Fehlversuche:
                 a#fehlversuche
