@@ -80,7 +80,6 @@ function spotMissedByUser() {
  */
 function stopTrial() {
     if ((clicks > 0 && fails == 0) || (clicks == 0 && fails > 0) || (clicks > 0 && fails > 0)) {
-        console.log(clicks, fails);
         var end_time = lastClickTimeStamp;//new Date();
         var elapsed_ms = end_time - start_time;
         var seconds = Math.round(elapsed_ms / 1000);
@@ -89,10 +88,16 @@ function stopTrial() {
 
         //alert('Der Versuch ist abgeschlossen');
 
+        var sec = parseInt(seconds);
+        var min = 0;
+        while (sec > 59) {
+            sec -= 60;
+            min++;
+        }
         printToHTMLById("treffer", document.getElementById("clicks").innerHTML);
         printToHTMLById("fehlversuche", document.getElementById("fails").innerHTML);
         printToHTMLById("versuchszeitpunkt", getDate());
-        printToHTMLById("versuchsdauer", minutes + " min und " + seconds + " s");
+        printToHTMLById("versuchsdauer", min + " min und " + sec + " s");
         var experimentName = getExperimentName();
         //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
         //refreshCounters();
@@ -138,9 +143,9 @@ function zeichneGraph(){
     drawSpot(elements);
     
     elements.push({
-		  width: 40,
-		  height: 30,
-		  top: 10,
+        width: 50,
+        height: 40,
+        top: 0,
 		  left: 980
 	});
 	
