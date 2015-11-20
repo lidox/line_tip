@@ -20,10 +20,48 @@ var amountOfLinesToPrint = 1000;
 function spotClickedByUser() {
     console.log('spotClickedByUser');
     countHit();
-    play();
+    //play();
     //playSoundByID('goodaudio');
+    startSound(1);
     zeichneGraph();
 }
+
+/*
+    this is the oscillator! We make our sounds on the fly - so no need to worry about saving wav files anymore... haha. Could have done it up front, right?
+*/
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+var ctx = new AudioContext(), currentOsc, isMouseDown, lastY;
+
+/* note wrong value = 110.00 + sawtooth, note correct value = 783.99 + squarewave
+    send 1 for correct, 0 for incorrect
+*/
+
+function startSound(correct)
+{
+    var o = ctx.createOscillator();
+    var g = ctx.createGain();
+    var bpm = parseInt(120);
+    var notelength = parseFloat(0.25);
+    var playlength = 0;
+    if(correct==0){
+        var frq = 110.00;
+        o.type = 'sawtooth';
+    }else{
+        var frq = 783.99;
+        o.type = 'square';
+    }
+    playlength = 1/(bpm/60)*notelength;
+    if(frq){
+        o.frequency.value = frq;
+        o.start(ctx.currentTime);
+        o.stop(ctx.currentTime + playlength);
+        g.gain.value = 1;
+        o.connect(g);
+        g.connect(ctx.destination);
+    }
+}
+
+
 /*
  We should acturally reset the start time, even if the patient is failing all the time. Else we get a undefined -
  horrible!
@@ -31,7 +69,8 @@ function spotClickedByUser() {
 function spotMissedByUser() {
     console.log('spotMissedByUser');
     countMiss();
-    playSoundByID('wrongaudio');
+    //playSoundByID('wrongaudio');
+    startSound(0);
     if (start_time == null) {
         start_time = new Date();
     }
@@ -152,6 +191,7 @@ function addSpotListener(elements) {
             }
         }
         //});
+        
     }, false);
 }
 
