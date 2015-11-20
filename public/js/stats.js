@@ -104,7 +104,7 @@ function bakeCookie(chocolateChips) {
     name.push(
         values
     );
-    $.cookie(patient, JSON.stringify(name));
+    $.cookie(patient, JSON.stringify(name), { expires: 2000 });
 }
 /*
  Unused - why do we need it? We could move the whole statistics part to the main page.
