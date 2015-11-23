@@ -22,7 +22,7 @@ function spotClickedByUser() {
     countHit();
     //play();
     //playSoundByID('goodaudio');
-    startSound(1);
+    //startSound(1);
     zeichneGraph();
 }
 
@@ -70,7 +70,7 @@ function spotMissedByUser() {
     console.log('spotMissedByUser');
     countMiss();
     //playSoundByID('wrongaudio');
-    startSound(0);
+    //startSound(0);
     if (start_time == null) {
         start_time = new Date();
     }
@@ -190,9 +190,11 @@ function addSpotListener(elements) {
             if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
                 elements = [];
                 spotClickedByUser();
+				startSound(1);
             }
             else{
                 spotMissedByUser();
+				startSound(0);
             }
         }
         //});
