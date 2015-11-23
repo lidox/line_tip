@@ -44,10 +44,10 @@ function startSound(correct)
     var notelength = parseFloat(0.25);
     var playlength = 0;
     if(correct==0){
-        var frq = 110.00;
-        o.type = 'sawtooth';
+        var frq = 250.00;
+        o.type = 'square';
     }else{
-        var frq = 783.99;
+        var frq = 900;
         o.type = 'square';
     }
     playlength = 1/(bpm/60)*notelength;
