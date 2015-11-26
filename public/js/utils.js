@@ -12,6 +12,8 @@ var isMiddleVisible = false;
 var amountOfLines = 800;
 spotPercentageWidth = 0.23;
 var generatorType = 'NOTrandom';
+var spotSize = 50;
+var lineSize = 5;
 
 //Print config
 var needToPrintRandomDataSet = false;
@@ -20,9 +22,6 @@ var amountOfLinesToPrint = 1000;
 function spotClickedByUser() {
     console.log('spotClickedByUser');
     countHit();
-    //play();
-    //playSoundByID('goodaudio');
-    //startSound(1);
     zeichneGraph();
 }
 
@@ -116,14 +115,8 @@ function zeichneGraph(){
         start_time = new Date();
     }
 
-    var spotSize = 50;
-    var lineSize = 5;
-    
-    var clipboard = document.getElementById('myCanvas');
-
-    // clear clipboard!
-    clipboard.width+=0;
-	//addButtonToCanvas();
+    // clear clipboard
+    document.getElementById('myCanvas').width+=0;
     
     if(amountOfLines<=clicks){
         stopTrial();
@@ -132,34 +125,37 @@ function zeichneGraph(){
     var lineGenerator = new LineGenerator(generatorType, amountOfLines);
     var lineList = lineGenerator.getLines();
     var line = lineList[clicks];
-    console.log("clicks="+clicks);
+    console.log("amount of clicks = "+clicks);
    
     drawLine(document.getElementById('myCanvas'), line, lineSize);
 
-    var elements = [];
+    var lineSpotList = [];
 
-    addSpotToSpotsList(elements, spotSize, line);
+    addSpotToSpotsList(lineSpotList, spotSize, line);
 
-    drawSpot(elements);
+    drawSpot(lineSpotList);
     
-    elements.push({
+    lineSpotList.push({
         width: 50,
         height: 40,
         top: 0,
-		  left: 980
+		left: 980
 	});
 	
-    element = elements[1];
-    document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(153, 0, 0, 0.8)';
-    document.getElementById('myCanvas').getContext('2d').fillRect(element.left, element.top, element.width, element.height);
+    drawRedStartStopButton(lineSpotList[1]);
     
     //if spot clicked -> spotClickedByUser() will be executed
     //otherwise spotMissedByUser() will be executed
-    addSpotListener(elements);
+    addSpotListener(lineSpotList);
     
     if(needToPrintRandomDataSet){
         printToHTML();
     }
+}
+
+function drawRedStartStopButton(redButton) {
+	document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(153, 0, 0, 0.8)';
+    document.getElementById('myCanvas').getContext('2d').fillRect(redButton.left, redButton.top, redButton.width, redButton.height);
 }
 
 function addSpotListener(elements) {
