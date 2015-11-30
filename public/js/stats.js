@@ -46,7 +46,7 @@ function isUserInputCorrect() {
     var timeStamp = document.getElementById("versuchsdauer").innerHTML;
     var description = document.getElementById("bezeichnung").value;
     if(isEmpty(description)){
-        var result = prompt("Bitte die MED-ID für diesen Versuch angeben.");
+        var result = prompt("Type in the MED-ID for this trial");
         document.getElementById('bezeichnung').value = result; 
         if(isEmpty(result)){
             isUserInputCorrect();

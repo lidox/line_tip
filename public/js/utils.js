@@ -95,7 +95,7 @@ function stopTrial() {
         printToHTMLById("treffer", document.getElementById("clicks").innerHTML);
         printToHTMLById("fehlversuche", document.getElementById("fails").innerHTML);
         printToHTMLById("versuchszeitpunkt", getDate());
-        printToHTMLById("versuchsdauer", min + " min und " + sec + " s");
+        printToHTMLById("versuchsdauer", min + " min and " + sec + " s");
         var experimentName = getExperimentName();
         start_time = null;
         clicks = 0;
