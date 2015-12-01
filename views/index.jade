@@ -1,11 +1,36 @@
 doctype html
 html(lang="de")
     head
+        link(rel="stylesheet", type="text/css", href="/css/bootstrap.css")
         link(rel="stylesheet", type="text/css", href="/css/style.css")
         link(rel="stylesheet", type="text/css", href="/css/normalize.css")
         meta(charset="UTF-8")
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         title LineTip
     body
-        h1 LineTip Home
-        a(href='/linetip') Go to lineTip
+        h2.text-center Line Detection Test
+        h2.text-center
+          button.btn.btn-primary.btn.btn3d(type='button' onclick="location.href='/linetip'")
+            span.glyphicon.glyphicon-cloud
+            |  Go to Line Detection
+        .container.content
+        .row
+          .col-md-6.col-md-offset-3
+            .testimonials
+              .active.item
+                blockquote
+                  p
+                    | The Line Detection test was developed for Prof. Dr. med. M. Sabel. 
+                blockquote
+                  
+                    | Contact Us:
+                .carousel-info
+                  img.pull-left(alt='', src='https://lh5.googleusercontent.com/-HwkdDqrK5tg/AAAAAAAAAAI/AAAAAAAAAEo/06h--4OfasM/photo.jpg')
+                  .pull-left
+                    span.testimonials-name Max Kieslich
+                    span.testimonials-post E-Mail: max.kieslich@aesora.de
+                .carousel-info
+                  img.pull-left(alt='', src='https://avatars3.githubusercontent.com/u/7879175')
+                  .pull-left
+                    span.testimonials-name Artur Schäfer
+                    span.testimonials-post E-Mail: schaefa@mail.ru
