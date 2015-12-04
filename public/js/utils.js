@@ -8,23 +8,16 @@ var canvasSpots = [];
 var isHidden = false;
 
 //configuration
-var isMiddleVisible = false;
+var isLineSpotVisible = false;
 var amountOfLines = 800;
-spotPercentageWidth = 0.23;
-var generatorType = 'NOTrandom';
+var spotWidthInPercentage = 0.23;
+var spotHeight = 50;
+var lineSize = 5;
+var lineGenerationType = 'NOTrandom';
 
 //Print config
 var needToPrintRandomDataSet = false;
 var amountOfLinesToPrint = 1000;
-
-function spotClickedByUser() {
-    console.log('spotClickedByUser');
-    countHit();
-    //play();
-    //playSoundByID('goodaudio');
-    startSound(1);
-    zeichneGraph();
-}
 
 /*
     this is the oscillator! We make our sounds on the fly - so no need to worry about saving wav files anymore... haha. Could have done it up front, right?
@@ -69,24 +62,28 @@ function startSound(correct)
 function spotMissedByUser() {
     console.log('spotMissedByUser');
     countMiss();
-    //playSoundByID('wrongaudio');
-    startSound(0);
+    //startSound(0);
     if (start_time == null) {
         start_time = new Date();
     }
 }
+
+function spotClickedByUser() {
+    console.log('spotClickedByUser');
+    countHit();
+    zeichneGraph();
+}
+
 /*
  Why do we need the Trim Seconds stuff? Too many recursions! Check the Console...
  */
 function stopTrial() {
     if ((clicks > 0 && fails == 0) || (clicks == 0 && fails > 0) || (clicks > 0 && fails > 0)) {
-        var end_time = lastClickTimeStamp;//new Date();
+        var end_time = lastClickTimeStamp;
         var elapsed_ms = end_time - start_time;
         var seconds = Math.round(elapsed_ms / 1000);
         var minutes = Math.round(seconds / 60);
         var hours = Math.round(minutes / 60);
-
-        //alert('Der Versuch ist abgeschlossen');
 
         var sec = parseInt(seconds);
         var min = 0;
@@ -94,16 +91,14 @@ function stopTrial() {
             sec -= 60;
             min++;
         }
+		
         printToHTMLById("treffer", document.getElementById("clicks").innerHTML);
         printToHTMLById("fehlversuche", document.getElementById("fails").innerHTML);
         printToHTMLById("versuchszeitpunkt", getDate());
-        printToHTMLById("versuchsdauer", min + " min und " + sec + " s");
+        printToHTMLById("versuchsdauer", min + " min and " + sec + " s");
         var experimentName = getExperimentName();
-        //var trial = new Trial(document.getElementById("bezeichnung").value,trailTIme, hits, fails);
-        //refreshCounters();
         start_time = null;
         clicks = 0;
-
         return;
     }
     else {
@@ -116,50 +111,47 @@ function zeichneGraph(){
         start_time = new Date();
     }
 
-    var spotSize = 50;
-    var lineSize = 5;
-    
-    var clipboard = document.getElementById('myCanvas');
-
-    // clear clipboard!
-    clipboard.width+=0;
-	//addButtonToCanvas();
+    // clear clipboard
+    document.getElementById('myCanvas').width+=0;
     
     if(amountOfLines<=clicks){
         stopTrial();
     }
     
-    var lineGenerator = new LineGenerator(generatorType, amountOfLines);
+    var lineGenerator = new LineGenerator(lineGenerationType, amountOfLines);
     var lineList = lineGenerator.getLines();
     var line = lineList[clicks];
-    console.log("clicks="+clicks);
+    console.log("amount of clicks = "+clicks);
    
     drawLine(document.getElementById('myCanvas'), line, lineSize);
 
-    var elements = [];
+    var lineSpotList = [];
 
-    addSpotToSpotsList(elements, spotSize, line);
+    addSpotToSpotsList(lineSpotList, spotHeight, line);
 
-    drawSpot(elements);
+    drawSpot(lineSpotList);
     
-    elements.push({
+    lineSpotList.push({
         width: 50,
         height: 40,
         top: 0,
-		  left: 980
+		left: 980
 	});
 	
-    element = elements[1];
-    document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(153, 0, 0, 0.8)';
-    document.getElementById('myCanvas').getContext('2d').fillRect(element.left, element.top, element.width, element.height);
+    drawRedStartStopButton(lineSpotList[1]);
     
     //if spot clicked -> spotClickedByUser() will be executed
     //otherwise spotMissedByUser() will be executed
-    addSpotListener(elements);
+    addSpotListener(lineSpotList);
     
     if(needToPrintRandomDataSet){
         printToHTML();
     }
+}
+
+function drawRedStartStopButton(redButton) {
+	document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(153, 0, 0, 0.8)';
+    document.getElementById('myCanvas').getContext('2d').fillRect(redButton.left, redButton.top, redButton.width, redButton.height);
 }
 
 function addSpotListener(elements) {
@@ -170,19 +162,16 @@ function addSpotListener(elements) {
         y = event.pageY - elemTop;
         
         var element = elements[1];
-            //console.log('check where user clicked to:');
-        //lastClickTimeStamp = new Date();
-            if(element!=undefined){
-             if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
-                if(element.left==980){
-                    onCanvasBtn();
-                    return;
-                }
-               }
-            }
+        if(element!=undefined){
+          if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+             if(element.left==980){
+                 onCanvasBtn();
+                 return;
+             }
+           }
+        }
 
         // Collision detection between clicked offset and element.
-        //elements.forEach(function(element) {
         var element = elements[0];
             //console.log('check where user clicked to:');
             lastClickTimeStamp = new Date();
@@ -190,12 +179,13 @@ function addSpotListener(elements) {
             if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
                 elements = [];
                 spotClickedByUser();
+				startSound(1);
             }
             else{
                 spotMissedByUser();
+				startSound(0);
             }
         }
-        //});
         
     }, false);
 }
@@ -218,11 +208,6 @@ function countHit() {
 function countMiss() {
     fails += 1;
     document.getElementById("fails").innerHTML = fails;
-}
-
-function playSoundByID(audioId) {
-  var sound = document.getElementById(audioId);
-  sound.play();
 }
 
 function refreshCounters() {
@@ -248,24 +233,22 @@ function drawLine(clipboard, line, lineSize) {
 }
 
 
-function addSpotToSpotsList(spotList, spotSize, line) {
-    var spotWidth = line.getLength()*spotPercentageWidth;
-    var m1 = ((line.getX1()+line.getX2())/2)-(spotWidth/2)+(spotSize/2);
+function addSpotToSpotsList(spotList, spotHeight, line) {
+    var spotWidth = line.getLength()*spotWidthInPercentage;
+    var m1 = ((line.getX1()+line.getX2())/2)-(spotWidth/2)+(spotHeight/2);
     var m2 = (line.getY1()+line.getY2())/2;
     spotList.push({
         colour: '#ffffff',
         width: (spotWidth),
-        height: spotSize,
-        top: m2-(spotSize/2),
-        left: m1-(spotSize/2)-10
+        height: spotHeight,
+        top: m2-(spotHeight/2),
+        left: m1-(spotHeight/2)-10
      });
 }
 
 function drawSpot(elements) {
     elements.forEach(function(element) {
-        //alert('element');
-        //context.fillStyle = element.colour;
-        if(isMiddleVisible){
+        if(isLineSpotVisible){
             document.getElementById('myCanvas').getContext('2d').fillStyle = 'rgba(0, 0, 121, 0.4)';
         }
         else{
@@ -279,9 +262,6 @@ function getExperimentName() {
     var text;
     try {
         text = document.getElementById("bezeichnung").value;
-        if(text===''){
-            //alert('Bitte einen Namen für den Versuch angeben!');
-        }
     }
     catch(err) {
         console.log('Could not read bezeichnung');
@@ -364,5 +344,4 @@ function startAndStopTrial() {
 function onCanvasBtn() {
 	toggleShowAll();
     startAndStopTrial();
-    //console.log('button im canvas geklickt');
 }

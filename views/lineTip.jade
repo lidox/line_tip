@@ -22,26 +22,26 @@ html(lang="de")
             form(onsubmit="return false;")#eingabeForm
                 label MED-ID:
                 input#bezeichnung(value='',class="form-control")
-                input.button#loading(type='button', value=' Laden ',class="btn btn-primary", onclick="loadDataBtn();")
-                label Versuchsdauer:
+                input.button#loading(type='button', value=' Load ',class="btn btn-primary", onclick="loadDataBtn();")
+                label Trial duration:
                 a#versuchsdauer
-                label Treffer:
+                label Hits:
                 a#treffer
-                label Fehlversuche:
+                label Fails:
                 a#fehlversuche
-                label Versuchszeitpunkt:
+                label Time:
                 a#versuchszeitpunkt
                 label &nbsp
         .col-md-9.hideMe
             label#patient
-                label Patient:
+                label MED-ID:
             #tab
             table#list(cellspacing='5px', cellpadding='20px', text-align='center')
                 tr
-                    th Zeit
-                    th Treffer
-                    th Fehlversuche
-                    th Versuchszeitpunkt
+                    th Trial duration
+                    th Hits
+                    th Fails
+                    th Time
             p#lines
         .col-md-12.hideMe
             div.button#contact|Contact
@@ -52,11 +52,12 @@ html(lang="de")
                     a(href="mailto='max.kieslich@aesora.de")|Max Kieslich
         .col-md-12.hideMe
             h2
-              | getroffen: 
+              | hits: 
               a#clicks 0
-              |   und verfehlt: 
+              |   and fails: 
               a#fails 0
               label &nbsp;
+            | About Line Detection
         .drawcontainer
             canvas#myCanvas(width='1024', height='748')
             script.

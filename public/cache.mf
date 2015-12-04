@@ -13,6 +13,8 @@ css/normalize.css
 css/bootstrap.css
 css/style.css
 
+img/max.jpg
+img/artur.jpg
 
 #stylesheet.css
 #images/logo.png
