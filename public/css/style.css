@@ -119,6 +119,10 @@ li {
     text-align: center;
 }
 
+#contact a {
+    color: #000000;
+}
+
 .contactInfo {
     display: block;
 }
