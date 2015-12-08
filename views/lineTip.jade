@@ -46,10 +46,11 @@ html(lang="de")
         .col-md-12.hideMe
             div.button#contact|Contact
             div.contactInfo
-                p|This Web-App is proudly made by
-                    a(mailto='schaefa@mail.ru')|Artur Schaefer
-                    and
-                    a(href="mailto='max.kieslich@aesora.de")|Max Kieslich
+                p|This Web-App is proudly made by&nbsp;
+                    a(href='mailto:schaefa@mail.ru?Subject=Line%20Detection', target='_top') Artur Schaefer
+                    | &nbsp;and&nbsp;
+                    a(href='mailto:max.kieslich@aesora.de?Subject=Line%20Detection', target='_top') Max Kieslich
+                    | &nbsp; or contact us via schaefa@mail.ru and max.kieslich@aesora.de
         .col-md-12.hideMe
             h2
               | hits: 
@@ -57,9 +58,9 @@ html(lang="de")
               |   and fails: 
               a#fails 0
               label &nbsp;
-            | About Line Detection
         .drawcontainer
             canvas#myCanvas(width='1024', height='748')
             script.
                 zeichneGraph();
                 loadDataBtn();
+                addEventButton();

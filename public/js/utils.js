@@ -1,10 +1,8 @@
 // variables
 var clicks = 0;
 var fails = 0;
-var scoreText = "";
 var start_time;
 var lastClickTimeStamp;
-var canvasSpots = [];
 var isHidden = false;
 
 //configuration
@@ -23,7 +21,7 @@ var amountOfLinesToPrint = 1000;
     this is the oscillator! We make our sounds on the fly - so no need to worry about saving wav files anymore... haha. Could have done it up front, right?
 */
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-var ctx = new AudioContext(), currentOsc, isMouseDown, lastY;
+var ctx = new AudioContext();
 
 /* note wrong value = 110.00 + sawtooth, note correct value = 783.99 + squarewave
     send 1 for correct, 0 for incorrect
@@ -35,15 +33,15 @@ function startSound(correct)
     var g = ctx.createGain();
     var bpm = parseInt(120);
     var notelength = parseFloat(0.25);
-    var playlength = 0;
+    var frq = 0;
     if(correct==0){
-        var frq = 250.00;
+        frq = 250.00;
         o.type = 'square';
     }else{
-        var frq = 900;
+        frq = 900;
         o.type = 'square';
     }
-    playlength = 1/(bpm/60)*notelength;
+    var playlength = 1 / (bpm / 60) * notelength;
     if(frq){
         o.frequency.value = frq;
         o.start(ctx.currentTime);
@@ -79,12 +77,8 @@ function spotClickedByUser() {
  */
 function stopTrial() {
     if ((clicks > 0 && fails == 0) || (clicks == 0 && fails > 0) || (clicks > 0 && fails > 0)) {
-        var end_time = lastClickTimeStamp;
-        var elapsed_ms = end_time - start_time;
+        var elapsed_ms = lastClickTimeStamp - start_time;
         var seconds = Math.round(elapsed_ms / 1000);
-        var minutes = Math.round(seconds / 60);
-        var hours = Math.round(minutes / 60);
-
         var sec = parseInt(seconds);
         var min = 0;
         while (sec > 59) {
@@ -96,13 +90,8 @@ function stopTrial() {
         printToHTMLById("fehlversuche", document.getElementById("fails").innerHTML);
         printToHTMLById("versuchszeitpunkt", getDate());
         printToHTMLById("versuchsdauer", min + " min and " + sec + " s");
-        var experimentName = getExperimentName();
         start_time = null;
         clicks = 0;
-        return;
-    }
-    else {
-        return;
     }
 }
 
@@ -155,7 +144,7 @@ function drawRedStartStopButton(redButton) {
 }
 
 function addSpotListener(elements) {
-    document.getElementById('myCanvas').addEventListener('click', function(event) {
+    document.getElementById('myCanvas').addEventListener('mousedown', function (event) {
         var elemLeft = document.getElementById('myCanvas').offsetLeft;
         var elemTop = document.getElementById('myCanvas').offsetTop;
         var x = event.pageX - elemLeft,
@@ -172,7 +161,7 @@ function addSpotListener(elements) {
         }
 
         // Collision detection between clicked offset and element.
-        var element = elements[0];
+        element = elements[0];
             //console.log('check where user clicked to:');
             lastClickTimeStamp = new Date();
         if(element!=undefined){
@@ -258,26 +247,11 @@ function drawSpot(elements) {
      });
 }
 
-function getExperimentName() {
-    var text;
-    try {
-        text = document.getElementById("bezeichnung").value;
-    }
-    catch(err) {
-        console.log('Could not read bezeichnung');
-    }
-    return text;
-}
-
 var Line = function (x1, y1, x2, y2) {
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
-};
-
-Line.prototype.printCoordinates = function() {
-  return ("Koordinaten: (" + this.x1+","+ this.y1+") und (" + this.x2+","+ this.y2+")");
 };
 
 Line.prototype.getX1 = function() {
@@ -344,4 +318,9 @@ function startAndStopTrial() {
 function onCanvasBtn() {
 	toggleShowAll();
     startAndStopTrial();
+}
+function addEventButton() {
+    document.getElementById('contact').addEventListener('mousedown', function () {
+        $('.contactInfo').toggle();
+    }, false);
 }
