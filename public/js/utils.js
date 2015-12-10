@@ -144,7 +144,7 @@ function drawRedStartStopButton(redButton) {
 }
 
 function addSpotListener(elements) {
-    document.getElementById('myCanvas').addEventListener('mousedown', function (event) {
+    document.getElementById('myCanvas').addEventListener('touchstart', function (event) {
         var elemLeft = document.getElementById('myCanvas').offsetLeft;
         var elemTop = document.getElementById('myCanvas').offsetTop;
         var x = event.pageX - elemLeft,
@@ -320,7 +320,7 @@ function onCanvasBtn() {
     startAndStopTrial();
 }
 function addEventButton() {
-    document.getElementById('contact').addEventListener('mousedown', function () {
+    document.getElementById('contact').addEventListener('touchstart', function () {
         $('.contactInfo').toggle();
     }, false);
 }
