@@ -21,7 +21,7 @@ var amountOfLinesToPrint = 1000;
     this is the oscillator! We make our sounds on the fly - so no need to worry about saving wav files anymore... haha. Could have done it up front, right?
 */
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
-var ctx = new AudioContext();
+var ctx = new AudioContext(), currentOsc, isMouseDown, lastY;
 
 /* note wrong value = 110.00 + sawtooth, note correct value = 783.99 + squarewave
     send 1 for correct, 0 for incorrect
@@ -144,7 +144,7 @@ function drawRedStartStopButton(redButton) {
 }
 
 function addSpotListener(elements) {
-    document.getElementById('myCanvas').addEventListener('mousedown', function (event) {
+    document.getElementById('myCanvas').addEventListener('touchstart', function (event) {
         var elemLeft = document.getElementById('myCanvas').offsetLeft;
         var elemTop = document.getElementById('myCanvas').offsetTop;
         var x = event.pageX - elemLeft,
@@ -320,7 +320,7 @@ function onCanvasBtn() {
     startAndStopTrial();
 }
 function addEventButton() {
-    document.getElementById('contact').addEventListener('mousedown', function () {
+    document.getElementById('contact').addEventListener('touchstart', function () {
         $('.contactInfo').toggle();
     }, false);
 }
